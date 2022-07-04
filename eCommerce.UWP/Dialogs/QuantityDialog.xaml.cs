@@ -38,6 +38,14 @@ namespace eCommerce.UWP.Dialogs
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            if ((DataContext as ProductByQuantity).Name == null)
+            {
+                (DataContext as ProductByQuantity).Name = " ";
+            }
+            if ((DataContext as ProductByQuantity).Description == null)
+            {
+                (DataContext as ProductByQuantity).Description = " ";
+            }
             ProductService.Current.AddOrUpdate(DataContext as ProductByQuantity);
         }
 
