@@ -45,8 +45,12 @@ namespace eCommerce.UWP.Dialogs
             DataContextProduct.Description = product.Description;
             DataContextProduct.Price = product.Price;
             DataContextProduct.Bogo = product.Bogo;
+            if(DataContextProduct.Quantity <= 0)
+            {
+                return;
+            }
             // If requested quantity is greater than quantity in inventory take all inventory quantity
-            if(DataContextProduct.Quantity > product.Quantity)
+            if (DataContextProduct.Quantity > product.Quantity)
             {
                 DataContextProduct.Quantity = product.Quantity;
                 product.Quantity = 0;

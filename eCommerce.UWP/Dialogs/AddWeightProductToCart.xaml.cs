@@ -45,8 +45,12 @@ namespace eCommerce.UWP.Dialogs
             DataContextProduct.Description = product.Description;
             DataContextProduct.Price = product.Price;
             DataContextProduct.Bogo = product.Bogo;
+            if (DataContextProduct.Weight <= 0)
+            {
+                return;
+            }
             // If requested weight is greater than weight in inventory take all inventory weight
-            if(DataContextProduct.Weight > product.Weight)
+            if (DataContextProduct.Weight > product.Weight)
             {
                 DataContextProduct.Weight = product.Weight;
                 product.Weight = 0;

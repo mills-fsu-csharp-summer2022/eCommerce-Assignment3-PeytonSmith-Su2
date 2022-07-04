@@ -40,6 +40,20 @@ namespace eCommerce.UWP.Dialogs
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             var DataContextProduct = DataContext as ProductByQuantity;
+            if (DataContextProduct.Quantity <= 0)
+            {
+                return;
+            }
+            // If requested quantity is greater than quantity in inventory take all inventory quantity
+            if (DataContextProduct.Quantity > product.Quantity)
+            {
+                DataContextProduct.Quantity = product.Quantity;
+                product.Quantity = 0;
+            }
+            else
+            {
+                product.Quantity -= DataContextProduct.Quantity;
+            }
             // Check if the product is in the inventory, if so, update the quantity of the product in inventory
             if (ProductService.Current.CheckProductInList(product))
             {

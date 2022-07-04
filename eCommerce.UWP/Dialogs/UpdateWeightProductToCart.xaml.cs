@@ -40,6 +40,20 @@ namespace eCommerce.UWP.Dialogs
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             var DataContextProduct = DataContext as ProductByWeight;
+            if (DataContextProduct.Weight <= 0)
+            {
+                return;
+            }
+            // If requested weight is greater than weight in inventory take all inventory weight
+            if (DataContextProduct.Weight > product.Weight)
+            {
+                DataContextProduct.Weight = product.Weight;
+                product.Weight = 0;
+            }
+            else
+            {
+                product.Weight -= DataContextProduct.Weight;
+            }
             // Check if the product is in the inventory, if so, update the weight of the product in inventory
             if (ProductService.Current.CheckProductInList(product))
             {
