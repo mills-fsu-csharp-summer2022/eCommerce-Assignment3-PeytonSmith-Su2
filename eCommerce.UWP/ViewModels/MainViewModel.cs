@@ -391,7 +391,7 @@ namespace eCommerce.UWP.ViewModels
         {
             get { return _bogosale; }
         }
-        public double TaxedAmount { get { return _subtotal * 0.07; } }
+        public double TaxedAmount { get { return (_subtotal - _bogosale) * 0.07; } }
         public double Total { get { return (_subtotal + TaxedAmount - _bogosale); } }
 
         public void CalculatePriceCart()
