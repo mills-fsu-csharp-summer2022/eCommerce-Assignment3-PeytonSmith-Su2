@@ -22,6 +22,7 @@ namespace eCommerce.UWP.Dialogs
 {
     public sealed partial class WeightDialog : ContentDialog
     {
+        private double previousWeight;
         public WeightDialog()
         {
             this.InitializeComponent();
@@ -33,11 +34,17 @@ namespace eCommerce.UWP.Dialogs
         {
             this.InitializeComponent();
             this.DataContext = selectedItem;
+            previousWeight = (selectedItem as ProductByWeight).Weight;
         }
 
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            if ((DataContext as ProductByWeight).Weight < 0)
+            {
+                (DataContext as ProductByWeight).Weight = previousWeight;
+                return;
+            }
             if ((DataContext as ProductByWeight).Name == null)
             {
                 (DataContext as ProductByWeight).Name = " ";

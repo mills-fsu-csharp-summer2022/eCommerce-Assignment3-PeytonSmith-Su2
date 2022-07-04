@@ -22,6 +22,7 @@ namespace eCommerce.UWP.Dialogs
 {
     public sealed partial class QuantityDialog : ContentDialog
     {
+        private int previousQuantity;
         public QuantityDialog()
         {
             this.InitializeComponent();
@@ -33,11 +34,17 @@ namespace eCommerce.UWP.Dialogs
         {
             this.InitializeComponent();
             this.DataContext = selectedItem;
+            previousQuantity = (selectedItem as ProductByQuantity).Quantity;
         }
 
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            if((DataContext as ProductByQuantity).Quantity < 0)
+            {
+                (DataContext as ProductByQuantity).Quantity = previousQuantity;
+                return;
+            }
             if ((DataContext as ProductByQuantity).Name == null)
             {
                 (DataContext as ProductByQuantity).Name = " ";
