@@ -42,23 +42,23 @@ namespace eCommerce.UWP.Dialogs
             var DataContextProduct = DataContext as ProductByQuantity;
             if (DataContextProduct.Quantity <= 0)
             {
+                DataContextProduct.Quantity = previousQuantity;
                 return;
             }
-            // If requested quantity is greater than quantity in inventory take all inventory quantity
-            if (DataContextProduct.Quantity > product.Quantity)
-            {
-                DataContextProduct.Quantity = product.Quantity;
-                product.Quantity = 0;
-            }
-            else
-            {
-                product.Quantity -= DataContextProduct.Quantity;
-            }
-            // Check if the product is in the inventory, if so, update the quantity of the product in inventory
+
+            // Check if selected product for edit is in inventory, if so return that product in inventory and get the quantity
+            // If the requested quantity is greater than the inventory's quantity, take all inventory quantity.
             if (ProductService.Current.CheckProductInList(product))
             {
-                Product ExistingProduct = ProductService.Current.ReturnExistingProductInList();
-                (ExistingProduct as ProductByQuantity).Quantity += (previousQuantity - DataContextProduct.Quantity);
+               Product ExistingProduct = ProductService.Current.ReturnExistingProductInList();
+               if((DataContext as ProductByQuantity).Quantity > (ExistingProduct as ProductByQuantity).Quantity+previousQuantity){
+                    (DataContext as ProductByQuantity).Quantity = (ExistingProduct as ProductByQuantity).Quantity+previousQuantity;
+                    (ExistingProduct as ProductByQuantity).Quantity = 0;
+                }
+                else
+                {
+                    (ExistingProduct as ProductByQuantity).Quantity += (previousQuantity - DataContextProduct.Quantity);
+                }
             }
         }
 

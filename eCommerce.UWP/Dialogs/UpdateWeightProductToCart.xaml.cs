@@ -42,23 +42,24 @@ namespace eCommerce.UWP.Dialogs
             var DataContextProduct = DataContext as ProductByWeight;
             if (DataContextProduct.Weight <= 0)
             {
+                DataContextProduct.Weight = previousWeight;
                 return;
             }
-            // If requested weight is greater than weight in inventory take all inventory weight
-            if (DataContextProduct.Weight > product.Weight)
-            {
-                DataContextProduct.Weight = product.Weight;
-                product.Weight = 0;
-            }
-            else
-            {
-                product.Weight -= DataContextProduct.Weight;
-            }
-            // Check if the product is in the inventory, if so, update the weight of the product in inventory
+
+            // Check if selected product for edit is in inventory, if so return that product in inventory and get the weight
+            // If the requested weight is greater than the inventory's weight, take all inventory weight.
             if (ProductService.Current.CheckProductInList(product))
             {
                 Product ExistingProduct = ProductService.Current.ReturnExistingProductInList();
-                (ExistingProduct as ProductByWeight).Weight += (previousWeight - DataContextProduct.Weight);
+                if ((DataContext as ProductByWeight).Weight > (ExistingProduct as ProductByWeight).Weight+previousWeight)
+                {
+                    (DataContext as ProductByWeight).Weight = (ExistingProduct as ProductByWeight).Weight+previousWeight;
+                    (ExistingProduct as ProductByWeight).Weight = 0;
+                }
+                else
+                {
+                    (ExistingProduct as ProductByWeight).Weight += (previousWeight - DataContextProduct.Weight);
+                }
             }
         }
 
