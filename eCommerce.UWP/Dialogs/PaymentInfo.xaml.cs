@@ -28,6 +28,7 @@ namespace eCommerce.UWP.Dialogs
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            // Delete the current cart and exit application
             (DataContext as MainViewModel).DeleteCart();
             Windows.UI.Xaml.Application.Current.Exit();
         }

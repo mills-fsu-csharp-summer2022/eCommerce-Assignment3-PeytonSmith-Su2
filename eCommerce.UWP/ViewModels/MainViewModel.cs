@@ -31,6 +31,7 @@ namespace eCommerce.UWP.ViewModels
 
         public ObservableCollection<Product> ProductsInventory
         {
+            // Display the list of products in inventory based on query and which sort is toggled
             get
             {
                 if (_productServiceInventory == null)
@@ -78,6 +79,7 @@ namespace eCommerce.UWP.ViewModels
 
         public ObservableCollection<Product> ProductsCart
         {
+            // Display the list of products in cart based on query and which sort is toggled
             get
             {
                 if (_productServiceCart == null)
@@ -140,6 +142,7 @@ namespace eCommerce.UWP.ViewModels
 
         public async Task AddInventory(ProductType iType)
         {
+            // Check whether the product in quantity/weight and display the respective dialog
             ContentDialog diag = null;
             if (iType == ProductType.Quantity)
             {
@@ -159,6 +162,7 @@ namespace eCommerce.UWP.ViewModels
         }
         public async Task AddCart()
         {
+            // Check if the selected product in inventory is by quantity/weight and show the respective dialog
             if (SelectedProductInventory != null)
             {
                 ContentDialog diag = null;
@@ -194,6 +198,7 @@ namespace eCommerce.UWP.ViewModels
 
             if (id >= 0)
             {
+                // Check if the select product in cart is in inventory, if so update the weight/quantity
                 if (_productServiceInventory.CheckProductInList(SelectedProductCart))
                 {
                     Product ExistingProduct = _productServiceInventory.ReturnExistingProductInList();
@@ -214,6 +219,7 @@ namespace eCommerce.UWP.ViewModels
         {
             if (SelectedProductInventory != null)
             {
+                // Check if selected product in inventory is by quantity/weight and show the respective dialog
                 if (SelectedProductInventory is ProductByQuantity)
                 {
                     var diag = new QuantityDialog(SelectedProductInventory);
@@ -236,6 +242,7 @@ namespace eCommerce.UWP.ViewModels
         {
             if (SelectedProductCart != null)
             {
+                // Check if selected product in cart is by quantity/weight and show the respective dialog
                 if (SelectedProductCart is ProductByQuantity)
                 {
                     var diag = new UpdateQuantityProductToCart(SelectedProductCart);
@@ -298,6 +305,7 @@ namespace eCommerce.UWP.ViewModels
             NotifyPropertyChanged("ProductsCart");
         }
 
+        // Changes all of the toggle variables depending on which is called
         public void NoSortToggleInventory()
         {
             NoSortingInventory = true;
@@ -350,10 +358,11 @@ namespace eCommerce.UWP.ViewModels
         public void AddCartNames()
         {
             string directory = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}";
-            //string directory = @"C:\Users\Peyton\AppData\Local\Packages\44c28585-0e9e-4d8d-9f52-d392bd0c8e2a_z4wsjhe2djg3t\LocalState";
             var jsonFiles = Directory.EnumerateFiles(directory, "*.json");
+            // Loop through all json files in local appdata folder
             foreach (string currentFile in jsonFiles)
             {
+                // If json file is not Inventory file add it to cartNames list
                 if (!(currentFile == (directory+@"\Inventory.json")))
                 {
                     // Take away the directory path and the .json part of the currentFile string to get only the cart
@@ -387,6 +396,7 @@ namespace eCommerce.UWP.ViewModels
 
         public void CalculatePriceCart()
         {
+            // Math that calculates the total bogosale and subtotal in cart 
             foreach(var product in _productServiceCart.Products)
             {
                 if(product is ProductByQuantity)
@@ -423,10 +433,10 @@ namespace eCommerce.UWP.ViewModels
         }
         public void DeleteCart()
         {
+            // Check if there is a current cart, if so, delete it from the local appdata folder
             if(_productServiceCart.CurrentCart != null)
             {
                 string directory = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}";
-                //string directory = @"C:\Users\Peyton\AppData\Local\Packages\44c28585-0e9e-4d8d-9f52-d392bd0c8e2a_z4wsjhe2djg3t\LocalState";
                 File.Delete(directory+@"\"+_productServiceCart.CurrentCart+".json");
             }
         }

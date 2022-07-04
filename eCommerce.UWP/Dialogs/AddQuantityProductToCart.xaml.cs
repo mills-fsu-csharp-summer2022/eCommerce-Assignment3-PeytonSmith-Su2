@@ -38,13 +38,24 @@ namespace eCommerce.UWP.Dialogs
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            // Copy data from selected item to product in cart and update quantity/weight in inventory
             var DataContextProduct = DataContext as ProductByQuantity;
 
             DataContextProduct.Name = product.Name;
             DataContextProduct.Description = product.Description;
             DataContextProduct.Price = product.Price;
             DataContextProduct.Bogo = product.Bogo;
-            product.Quantity -= DataContextProduct.Quantity;
+            // If requested quantity is greater than quantity in inventory take all inventory quantity
+            if(DataContextProduct.Quantity > product.Quantity)
+            {
+                DataContextProduct.Quantity = product.Quantity;
+                product.Quantity = 0;
+            }
+            else
+            {
+                product.Quantity -= DataContextProduct.Quantity;
+            }
+            // Check if the product is in the cart already, if so, add the quantity to the existing item
             if (ProductService.Current2.CheckProductInList(product))
             {
                Product ExistingProduct = ProductService.Current2.ReturnExistingProductInList();

@@ -36,6 +36,7 @@ namespace eCommerce.UWP.Dialogs
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            // Save inventory to Inventory.json, cart to given fileName.json and set the current cart to the filename
             ProductService.Current.Save("Inventory");
             ProductService.Current2.Save(fileName);
             ProductService.Current2.CurrentCart = fileName;

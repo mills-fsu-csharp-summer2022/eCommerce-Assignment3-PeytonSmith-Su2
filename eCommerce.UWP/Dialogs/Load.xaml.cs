@@ -35,6 +35,7 @@ namespace eCommerce.UWP.Dialogs
         }
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            // Load the cart given the selection and update current cart
             (DataContext as MainViewModel).LoadCartInventoryFromSelection();
             if((DataContext as MainViewModel).SelectedCartName != null)
             {
