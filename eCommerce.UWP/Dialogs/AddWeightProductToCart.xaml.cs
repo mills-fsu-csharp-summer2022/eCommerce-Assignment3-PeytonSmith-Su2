@@ -45,6 +45,7 @@ namespace eCommerce.UWP.Dialogs
             DataContextProduct.Description = product.Description;
             DataContextProduct.Price = product.Price;
             DataContextProduct.Bogo = product.Bogo;
+            DataContextProduct.UID = product.UID;
             if (DataContextProduct.Weight <= 0)
             {
                 return;

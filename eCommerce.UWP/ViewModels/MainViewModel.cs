@@ -188,7 +188,11 @@ namespace eCommerce.UWP.ViewModels
             var id = SelectedProductInventory?.Id ?? -1;
             if (id >= 0)
             {
-                _productServiceInventory.Delete(SelectedProductInventory.Id);
+                if (_productServiceCart.CheckProductInList(SelectedProductInventory))
+                {
+                    _productServiceCart.Delete(SelectedProductInventory.UID);
+                }
+                _productServiceInventory.Delete(SelectedProductInventory.UID);
             }
             NotifyPropertyChanged("ProductsInventory");
         }
@@ -211,7 +215,7 @@ namespace eCommerce.UWP.ViewModels
                         (ExistingProduct as ProductByWeight).Weight += (SelectedProductCart as ProductByWeight).Weight;
                     }
                 }
-                _productServiceCart.Delete(SelectedProductCart.Id);
+                _productServiceCart.Delete(SelectedProductCart.UID);
             }
             NotifyPropertyChanged("ProductsCart");
         }

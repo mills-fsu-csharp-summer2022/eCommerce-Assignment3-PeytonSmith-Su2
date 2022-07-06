@@ -52,6 +52,11 @@ namespace Library.eCommerce.Services
                 return current;
             }
         }
+        // Should only ever be used when adding to inventory
+        public void SetUID(Product product)
+        {
+            product.UID = NextId;
+        }
 
         private Product ExistingProductInList { get; set; }
         public bool CheckProductInList(Product product)
@@ -60,7 +65,7 @@ namespace Library.eCommerce.Services
             for (var i = 0; i < products.Count; i++)
             {
                 // Check if all attributes to a product is the same before combining weight/quantity
-                if ((products[i].Name == product.Name) && (products[i].Description == product.Description) && (products[i].Bogo == product.Bogo) && (products[i].Price == product.Price))
+                if (products[i].UID == product.UID)
                 {
                     ExistingProductInList = products[i];
                     return true;
@@ -102,9 +107,9 @@ namespace Library.eCommerce.Services
 
         }
 
-        public void Delete(int id)
+        public void Delete(int uid)
         {
-            var productToDelete = productList.FirstOrDefault(t => t.Id == id);
+            var productToDelete = productList.FirstOrDefault(t => t.UID == uid);
             if (productToDelete == null)
             {
                 return;

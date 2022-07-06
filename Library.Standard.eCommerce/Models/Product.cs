@@ -8,7 +8,8 @@
         public int Id { get; set; }
         public bool Bogo { get; set; }
         public virtual double TotalPrice { get; set; }
-
+        // unique ID that is given to a product and is kept throughout cart/inventory
+        public int UID { get; set; }
         public Product()
         {
 

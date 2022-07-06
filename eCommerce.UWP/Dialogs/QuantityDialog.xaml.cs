@@ -54,6 +54,15 @@ namespace eCommerce.UWP.Dialogs
                 (DataContext as ProductByQuantity).Description = " ";
             }
             ProductService.Current.AddOrUpdate(DataContext as ProductByQuantity);
+            ProductService.Current.SetUID(DataContext as ProductByQuantity);
+            // Update product in cart with meta data changes
+            if (ProductService.Current2.CheckProductInList(DataContext as ProductByQuantity))
+            {
+                ProductService.Current2.ReturnExistingProductInList().Name = (DataContext as ProductByQuantity).Name;
+                ProductService.Current2.ReturnExistingProductInList().Description = (DataContext as ProductByQuantity).Description;
+                ProductService.Current2.ReturnExistingProductInList().Price = (DataContext as ProductByQuantity).Price;
+                ProductService.Current2.ReturnExistingProductInList().Bogo = (DataContext as ProductByQuantity).Bogo;
+            }
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
