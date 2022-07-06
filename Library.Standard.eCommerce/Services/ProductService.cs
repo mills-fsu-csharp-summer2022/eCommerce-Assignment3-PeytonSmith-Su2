@@ -64,7 +64,7 @@ namespace Library.eCommerce.Services
             var products = Products;
             for (var i = 0; i < products.Count; i++)
             {
-                // Check if all attributes to a product is the same before combining weight/quantity
+                // Check if UID of a product matches
                 if (products[i].UID == product.UID)
                 {
                     ExistingProductInList = products[i];
