@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using eCommerce.UWP.Dialogs;
 using Windows.UI.Xaml.Controls;
 using System.IO;
+using Windows.UI.Xaml;
 
 namespace eCommerce.UWP.ViewModels
 {
@@ -156,6 +157,15 @@ namespace eCommerce.UWP.ViewModels
             {
                 throw new NotImplementedException();
             }
+
+            await diag.ShowAsync();
+            RefreshInventory();
+        }
+        public async Task AddProduct()
+        {
+            // Check whether the product in quantity/weight and display the respective dialog
+            ContentDialog diag = null;
+            diag = new AddProductToInventory();
 
             await diag.ShowAsync();
             RefreshInventory();

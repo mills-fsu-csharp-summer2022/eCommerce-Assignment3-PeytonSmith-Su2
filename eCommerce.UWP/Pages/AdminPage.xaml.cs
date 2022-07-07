@@ -78,21 +78,12 @@ namespace eCommerce.UWP.Pages
             vm.RefreshInventory();
         }
 
-        private async void AddProductQuantityButton_Click(object sender, RoutedEventArgs e)
+        private async void AddProductButton_Click(object sender, RoutedEventArgs e)
         {
             var vm = DataContext as MainViewModel;
             if (vm != null)
             {
-                await vm.AddInventory(ProductType.Quantity);
-            }
-        }
-
-        private async void AddProductWeightButton_Click(object sender, RoutedEventArgs e)
-        {
-            var vm = DataContext as MainViewModel;
-            if (vm != null)
-            {
-                await vm.AddInventory(ProductType.Weight);
+                await vm.AddProduct();
             }
         }
     }

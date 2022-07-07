@@ -126,6 +126,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\AddProductToInventory.xaml.cs">
+      <DependentUpon>AddProductToInventory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\AddQuantityProductToCart.xaml.cs">
       <DependentUpon>AddQuantityProductToCart.xaml</DependentUpon>
     </Compile>
@@ -192,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\AddProductToInventory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\AddQuantityProductToCart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

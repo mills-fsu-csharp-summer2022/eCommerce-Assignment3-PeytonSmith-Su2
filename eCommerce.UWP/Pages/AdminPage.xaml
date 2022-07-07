@@ -149,14 +149,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Button Content="Add product by quantity" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AddProductQuantityButton_Click" Background="LemonChiffon" Foreground="Black" FontFamily="Lato Light" FontSize="20"></Button>
-                <Button Content="Add product by weight" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AddProductWeightButton_Click" Background="Orchid" Foreground="Black" FontFamily="Lato Light" FontSize="20"></Button>
-            </Grid>
+            <Button Content="Add product" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AddProductButton_Click" Background="LemonChiffon" Foreground="Black" FontFamily="Lato Light" FontSize="35"></Button>
             <Button Content="Edit selected product" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="EditProductButton_Click" Background="Orange" Foreground="Black" FontFamily="Lato Light" FontSize="35"></Button>
             <Button Content="Remove selected product" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="DeleteProductButton_Click" Background="Red" Foreground="White" FontFamily="Lato Light" FontSize="35"></Button>
 
