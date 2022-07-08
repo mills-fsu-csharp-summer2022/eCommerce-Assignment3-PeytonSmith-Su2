@@ -14,6 +14,28 @@ namespace Library.eCommerce.Models
         public virtual double TotalPrice { get; set; }
         // unique ID that is given to a product and is kept throughout cart/inventory
         public int UID { get; set; }
+        public int Quantity
+        {
+            get
+            {
+                if (IsQuantity)
+                {
+                    return (this as ProductByQuantity).Quantity;
+                }
+                return -1;
+            }
+        }
+        public double Weight
+        {
+            get
+            {
+                if (IsWeight)
+                {
+                    return (this as ProductByWeight).Weight;
+                }
+                return -1;
+            }
+        }
         public Product()
         {
         }
