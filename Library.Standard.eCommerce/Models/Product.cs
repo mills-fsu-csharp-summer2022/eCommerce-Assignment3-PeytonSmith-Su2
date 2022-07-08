@@ -1,4 +1,8 @@
-﻿namespace Library.eCommerce.Models
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using Windows.UI.Xaml;
+
+namespace Library.eCommerce.Models
 {
     public partial class Product
     {
@@ -12,7 +16,19 @@
         public int UID { get; set; }
         public Product()
         {
-
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public bool IsQuantity
+        {
+            get { return this is ProductByQuantity; }
+        }
+        public bool IsWeight
+        {
+            get { return this is ProductByWeight; }
         }
 
         public override string ToString()

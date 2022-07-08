@@ -28,9 +28,10 @@
                     <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=Description}"/>
                     <TextBlock Grid.Row="3" Grid.Column="0" Text="Price"/>
                     <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=Price}"/>
-                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Quantity/Weight:"/>
-                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Weight}"/>
-                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Quantity}"/>
+                    <TextBlock Grid.Row="4" Visibility="{Binding Path=IsQuantity}" Grid.Column="0" Text="Quantity:"/>
+                    <TextBlock Grid.Row="4" Visibility="{Binding Path=IsWeight}" Grid.Column="0" Text="Weight:"/>
+                    <TextBlock Grid.Row="4" Visibility="{Binding Path=IsWeight}" Grid.Column="1" Text="{Binding Path=Weight}"/>
+                    <TextBlock Grid.Row="4" Visibility="{Binding Path=IsQuantity}" Grid.Column="1" Text="{Binding Path=Quantity}"/>
                     <TextBlock Grid.Row="5" Grid.Column="0" Text="Bogo:"/>
                     <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=Bogo}"/>
                 </Grid>
