@@ -9,6 +9,39 @@
     Background="White">
 
     <Page.Resources>
+        <DataTemplate x:Key="ProductTemplate">
+            <Border Name="border" BorderBrush="Aqua" BorderThickness="1"
+          Padding="5" Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Id:"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Id}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Name:"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Description:"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=Description}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Price"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=Price}"/>
+                    <TextBlock Grid.Row="4" Visibility="{Binding Path=IsQuantity}" Grid.Column="0" Text="Quantity:"/>
+                    <TextBlock Grid.Row="4" Visibility="{Binding Path=IsWeight}" Grid.Column="0" Text="Weight:"/>
+                    <TextBlock Grid.Row="4" Visibility="{Binding Path=IsWeight}" Grid.Column="1" Text="{Binding Path=Weight}"/>
+                    <TextBlock Grid.Row="4" Visibility="{Binding Path=IsQuantity}" Grid.Column="1" Text="{Binding Path=Quantity}"/>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Bogo:"/>
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=Bogo}"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
         <Style TargetType="Button">
             <Setter Property="Background" Value="{ThemeResource ButtonBackground}"/>
             <Setter Property="BackgroundSizing" Value="OuterBorderEdge"/>

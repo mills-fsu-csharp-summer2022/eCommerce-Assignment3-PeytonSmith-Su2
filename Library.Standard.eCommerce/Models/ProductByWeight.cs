@@ -8,7 +8,7 @@ namespace Library.eCommerce.Models
 {
     public class ProductByWeight : Product
     {
-        public double Weight { get; set; }
+        new public double Weight { get; set; }
 
         public override double TotalPrice { get { return Price * Weight; } set { } }
 

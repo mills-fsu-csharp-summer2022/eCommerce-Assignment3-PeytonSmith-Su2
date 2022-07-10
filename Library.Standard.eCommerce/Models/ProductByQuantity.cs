@@ -8,7 +8,7 @@ namespace Library.eCommerce.Models
 {
     public class ProductByQuantity : Product
     {
-        public int Quantity { get; set; }
+        new public int Quantity { get; set; }
 
         public override double TotalPrice { get { return Price * Quantity; } set { } }
 

@@ -9,6 +9,42 @@
     Background="White">
 
     <Page.Resources>
+        <DataTemplate x:Key="ProductTemplate">
+            <Border Name="border" BorderBrush="Aqua" BorderThickness="1"
+          Padding="5" Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Id:"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Id}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Name:"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Description:"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=Description}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Price"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=Price}"/>
+                    <TextBlock Grid.Row="4" Visibility="{Binding Path=IsQuantity}" Grid.Column="0" Text="Quantity:"/>
+                    <TextBlock Grid.Row="4" Visibility="{Binding Path=IsWeight}" Grid.Column="0" Text="Weight:"/>
+                    <TextBlock Grid.Row="4" Visibility="{Binding Path=IsWeight}" Grid.Column="1" Text="{Binding Path=Weight}"/>
+                    <TextBlock Grid.Row="4" Visibility="{Binding Path=IsQuantity}" Grid.Column="1" Text="{Binding Path=Quantity}"/>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Bogo:"/>
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=Bogo}"/>
+                    <Button Content="Update" Grid.RowSpan="2" Grid.Row="0" Grid.Column="3" Click="EditProductButton_Click" Background="Orange" Foreground="Black" FontFamily="Lato Light"></Button>
+                    <Button Content="Remove" Grid.RowSpan="2" Grid.Row="3" Grid.Column="3" Click="DeleteProductButton_Click" Background="DarkRed" Foreground="White" FontFamily="Lato Light"></Button>
+                </Grid>
+            </Border>
+        </DataTemplate>
         <Style TargetType="Button">
             <Setter Property="Background" Value="{ThemeResource ButtonBackground}"/>
             <Setter Property="BackgroundSizing" Value="OuterBorderEdge"/>
@@ -127,6 +163,7 @@
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
                         </Style>
                     </ListBox.ItemContainerStyle>
+                    
                 </ListBox>
             </Grid>
             <Grid Grid.Column="1">
@@ -144,15 +181,7 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Button Content="Add product" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AddProductButton_Click" Background="LemonChiffon" Foreground="Black" FontFamily="Lato Light" FontSize="35"></Button>
-            <Button Content="Edit selected product" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="EditProductButton_Click" Background="Orange" Foreground="Black" FontFamily="Lato Light" FontSize="35"></Button>
-            <Button Content="Remove selected product" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="DeleteProductButton_Click" Background="Red" Foreground="White" FontFamily="Lato Light" FontSize="35"></Button>
-
+            <Button Content="Add product to inventory" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AddProductButton_Click" Background="LemonChiffon" Foreground="Black" FontFamily="Lato Light" FontSize="50"></Button>
         </Grid>
     </Grid>
 </Page>

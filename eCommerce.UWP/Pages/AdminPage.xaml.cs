@@ -1,4 +1,5 @@
 ﻿using eCommerce.UWP.ViewModels;
+using Library.eCommerce.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,6 +38,8 @@ namespace eCommerce.UWP.Pages
         private void EditProductButton_Click(object sender, RoutedEventArgs e)
         {
             var vm = DataContext as MainViewModel;
+            var model = ((sender as Button).DataContext as Product);
+            vm.SelectedProductInventory = model;
             if (vm != null)
             {
                 vm.UpdateInventory();
@@ -46,6 +49,8 @@ namespace eCommerce.UWP.Pages
         private void DeleteProductButton_Click(object sender, RoutedEventArgs e)
         {
             var vm = DataContext as MainViewModel;
+            var model = ((sender as Button).DataContext as Product);
+            vm.SelectedProductInventory = model;
             if (vm != null)
             {
                 vm.RemoveInventory();
@@ -85,6 +90,11 @@ namespace eCommerce.UWP.Pages
             {
                 await vm.AddProduct();
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
