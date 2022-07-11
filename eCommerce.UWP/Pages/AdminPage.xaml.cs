@@ -91,10 +91,5 @@ namespace eCommerce.UWP.Pages
                 await vm.AddProduct();
             }
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
