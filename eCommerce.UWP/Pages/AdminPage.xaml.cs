@@ -1,5 +1,6 @@
 ﻿using eCommerce.UWP.ViewModels;
 using Library.eCommerce.Models;
+using Library.eCommerce.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -90,6 +91,18 @@ namespace eCommerce.UWP.Pages
             {
                 await vm.AddProduct();
             }
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            ProductService.Current.Save("Inventory");
+            (DataContext as MainViewModel).RefreshInventory();
+        }
+
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+            ProductService.Current.Load("Inventory");
+            (DataContext as MainViewModel).RefreshInventory();
         }
     }
 }

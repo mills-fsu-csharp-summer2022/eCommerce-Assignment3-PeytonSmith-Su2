@@ -20,6 +20,7 @@ namespace Library.eCommerce.Services
         {
             get
             {
+                var productsJson = new WebRequestHandler().Get("http://localhost:5287/WeatherForecast");
                 return productList;
             }
         }

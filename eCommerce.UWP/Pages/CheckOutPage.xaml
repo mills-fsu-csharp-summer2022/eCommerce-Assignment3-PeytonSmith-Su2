@@ -149,7 +149,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" BorderBrush="Purple" BorderThickness="10" CornerRadius="10">
+            <Grid Grid.Row="0" BorderBrush="Purple" BorderThickness="10" CornerRadius="10" Margin="0,10,0,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -170,8 +170,8 @@
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red" Grid.Column="1" Grid.Row="2" Text="{Binding Path=TaxedAmount, Mode=OneWay}" FontStyle="Italic" FontSize="25"/>
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Grid.Column="1" Grid.Row="3" Text="{Binding Path=Total, Mode=OneWay}" FontWeight="ExtraBold" FontSize="25"/>
             </Grid>
-            <Button Grid.Row="1" Content="Payment Info" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Orange" Foreground="Black" FontFamily="Lato Light" Click="PaymentInfoButton_Click" FontSize="45"/>
-            <Button Grid.Row="2" Content="Go Back" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray" Foreground="Black" FontFamily="Lato Light" Click="GoBackButton_Click" FontSize="45"/>
+            <Button BorderThickness="2" BorderBrush="Black" Grid.Row="1" Content="Payment Info" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Orange" Foreground="Black" FontFamily="Lato Light" Click="PaymentInfoButton_Click" FontSize="45" Margin="0,10,0,10"/>
+            <Button BorderThickness="2" BorderBrush="Black" Grid.Row="2" Content="Go Back" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray" Foreground="Black" FontFamily="Lato Light" Click="GoBackButton_Click" FontSize="45" Margin="0,10,0,10"/>
         </Grid>
     </Grid>
 </Page>

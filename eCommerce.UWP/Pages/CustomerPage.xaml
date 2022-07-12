@@ -128,7 +128,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBox Grid.Column="0" Foreground="White" Text="{Binding Path=QueryInventory, Mode=TwoWay}"/>
-            <Button Grid.Column="1" Content="Search" Background="YellowGreen" Foreground="Black" FontFamily="Lato Light" Click="SearchButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="30"/>
+            <Button BorderThickness="2" BorderBrush="Black" Grid.Column="1" Content="Search" Background="YellowGreen" Foreground="Black" FontFamily="Lato Light" Click="SearchButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="30"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -150,9 +150,9 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Content="No sorting" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="SkyBlue" Foreground="Black" FontFamily="Lato Light" Click="NoSortButton_Click" FontSize="30"/>
-                    <Button Grid.Column="1" Content="Sort by name" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="GreenYellow" Foreground="Black" FontFamily="Lato Light" Click="NameSortButton_Click" FontSize="30"/>
-                    <Button Grid.Column="2" Content="Sort by unit price" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="IndianRed" Foreground="Black" FontFamily="Lato Light" Click="UnitPriceSortButton_Click" FontSize="30"/>
+                    <Button BorderThickness="2" BorderBrush="Black" Grid.Column="0" Content="No sorting" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="SkyBlue" Foreground="Black" FontFamily="Lato Light" Click="NoSortButton_Click" FontSize="30"/>
+                    <Button BorderThickness="2" BorderBrush="Black" Grid.Column="1" Content="Sort by name" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="GreenYellow" Foreground="Black" FontFamily="Lato Light" Click="NameSortButton_Click" FontSize="30"/>
+                    <Button BorderThickness="2" BorderBrush="Black" Grid.Column="2" Content="Sort by unit price" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="IndianRed" Foreground="Black" FontFamily="Lato Light" Click="UnitPriceSortButton_Click" FontSize="30"/>
                 </Grid>
                 <ListBox ItemTemplate="{StaticResource ProductTemplate}" Grid.Row="2" Background="White" Foreground="Black" BorderThickness="5" BorderBrush="Black" ItemsSource="{Binding Path=ProductsInventory,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedProductInventory, Mode=TwoWay}">
                     <ListBox.ItemContainerStyle>
@@ -168,7 +168,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0" Content="Cart" HorizontalAlignment="Center" Background="DarkOliveGreen" Foreground="Black" FontFamily="Lato Light" Click="CartButton_Click" Height="155" Width="135" FontSize="40"/>
+                <Button Grid.Row="0" Content="Cart" Background="DarkOliveGreen" Foreground="Black" FontFamily="Lato Light" Click="CartButton_Click" BorderThickness="2" BorderBrush="Black" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="40"/>
 
                 <TextBlock  Grid.Row="1" Text="Customer Panel"
                TextWrapping="Wrap" TextAlignment="Center" Foreground="Black" FontFamily="Lato Light" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Margin="-73,0,-73,0" Height="135" VerticalAlignment="Center" FontSize="50" FontWeight="Bold">
@@ -176,11 +176,11 @@
                         <CompositeTransform Rotation="90"/>
                     </TextBlock.RenderTransform>
                 </TextBlock>
-                <Button Grid.Row="2" Content="Logout" HorizontalAlignment="Center" Background="DarkRed" Foreground="White" FontFamily="Lato Light" Click="LogOutButton_Click" Height="155" Width="135" FontSize="30"/>
+                <Button Grid.Row="2" BorderThickness="2" BorderBrush="White" Content="Logout" Background="DarkRed" Foreground="White" FontFamily="Lato Light" Click="LogOutButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="30"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="2">
-            <Button Content="Add product to cart" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AddProductButton_Click" Background="LemonChiffon" Foreground="Black" FontFamily="Lato Light" FontSize="50"></Button>
+            <Button BorderThickness="2" BorderBrush="Black" Content="Add product to cart" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AddProductButton_Click" Background="LemonChiffon" Foreground="Black" FontFamily="Lato Light" FontSize="50"></Button>
         </Grid>
     </Grid>
 </Page>
