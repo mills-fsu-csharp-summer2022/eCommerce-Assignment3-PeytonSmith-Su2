@@ -20,8 +20,12 @@ namespace Library.eCommerce.Services
         {
             get
             {
-                var productsJson = new WebRequestHandler().Get("http://localhost:5287/WeatherForecast");
+                //var productsJson = new WebRequestHandler().Get("http://localhost:5127/Product");
                 return productList;
+            }
+            set
+            {
+                productList = value;
             }
         }
 
@@ -49,10 +53,33 @@ namespace Library.eCommerce.Services
                 {
                     current = new ProductService();
                 }
-
+                //SetUpInventory();
                 return current;
             }
         }
+        public static ProductService Current2
+        {
+            get
+            {
+                if (current2 == null)
+                {
+                    current2 = new ProductService();
+                }
+                //SetUpCart();
+                return current2;
+            }
+        }
+        //private static void SetUpCart()
+        //{
+        //    var productsJson = new WebRequestHandler().Get("http://localhost:5127/Product/Cart").Result;
+        //    Current.Products = JsonConvert.DeserializeObject<List<Product>>(productsJson);
+        //}
+        //private static void SetUpInventory()
+        //{
+        //    var productsJson = new WebRequestHandler().Get("http://localhost:5127/Product/Inventory").Result;
+        //    productList = JsonConvert.DeserializeObject<List<Product>>(productsJson);
+        //}
+
         // Should only ever be used when adding to inventory
         public void SetUID(Product product)
         {
@@ -80,19 +107,6 @@ namespace Library.eCommerce.Services
             return ExistingProductInList;
         }
 
-        public static ProductService Current2
-        {
-            get
-            {
-                if (current2 == null)
-                {
-                    current2 = new ProductService();
-                }
-
-                return current2;
-            }
-        }
-
         public ProductService()
         {
             productList = new List<Product>();
@@ -100,16 +114,52 @@ namespace Library.eCommerce.Services
 
         public void AddOrUpdate(Product product)
         {
-            if (product.Id <= 0)
-            {
-                product.Id = NextId;
-                Products.Add(product);
-            }
+            //if (product.Id <= 0)
+            //{
+            //    product.Id = NextId;
+            //    Products.Add(product);
+            //}
 
+            if (product is ProductByQuantity)
+            {
+                var response = new WebRequestHandler().Post("http://localhost:5127/ProductByQuantity/AddOrUpdate/Inventory", product).Result;
+                var newProduct = JsonConvert.DeserializeObject<ProductByQuantity>(response);
+
+                var oldVersion = productList.FirstOrDefault(i => i.Id == newProduct.Id);
+                if (oldVersion != null)
+                {
+                    var index = productList.IndexOf(oldVersion);
+                    productList.RemoveAt(index);
+                    productList.Insert(index, newProduct);
+                }
+                else
+                {
+                    productList.Add(newProduct);
+                }
+
+            }
+            else if (product is ProductByWeight)
+            {
+                var response = new WebRequestHandler().Post("http://localhost:5127/ProductByWeight/AddOrUpdate", product).Result;
+                var newProduct = JsonConvert.DeserializeObject<ProductByWeight>(response);
+
+                var oldVersion = productList.FirstOrDefault(i => i.Id == newProduct.Id);
+                if (oldVersion != null)
+                {
+                    var index = productList.IndexOf(oldVersion);
+                    productList.RemoveAt(index);
+                    productList.Insert(index, newProduct);
+                }
+                else
+                {
+                    productList.Add(newProduct);
+                }
+            }
         }
 
         public void Delete(int uid)
         {
+            var response = new WebRequestHandler().Get($"http://localhost:5127/Product/Delete/{uid}");
             var productToDelete = productList.FirstOrDefault(t => t.UID == uid);
             if (productToDelete == null)
             {

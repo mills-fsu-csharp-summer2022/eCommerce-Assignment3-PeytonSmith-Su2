@@ -1,8 +1,12 @@
+using Library.eCommerce.Utilities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers()
+   .AddNewtonsoftJson(opt => opt.SerializerSettings.Converters
+   .Add(new ProductJsonConverter()));
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Windows.UI.Xaml;
+using Library.eCommerce.Utilities;
+using Newtonsoft.Json;
 
 namespace Library.eCommerce.Models
 {
+    [JsonConverter(typeof(ProductJsonConverter))]
     public partial class Product
     {
         public string Name { get; set; }

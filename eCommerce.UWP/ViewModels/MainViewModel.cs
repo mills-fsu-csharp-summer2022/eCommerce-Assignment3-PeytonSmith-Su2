@@ -11,6 +11,8 @@ using eCommerce.UWP.Dialogs;
 using Windows.UI.Xaml.Controls;
 using System.IO;
 using Windows.UI.Xaml;
+using Library.eCommerce.Utilities;
+using Newtonsoft.Json;
 
 namespace eCommerce.UWP.ViewModels
 {
@@ -131,8 +133,12 @@ namespace eCommerce.UWP.ViewModels
 
         public MainViewModel()
         {
-            _productServiceInventory = ProductService.Current;
             _productServiceCart = ProductService.Current2;
+            _productServiceInventory = ProductService.Current;
+            var productsCartJson = new WebRequestHandler().Get("http://localhost:5127/Product/Cart").Result;
+            _productServiceCart.Products = JsonConvert.DeserializeObject<List<Product>>(productsCartJson);
+            var productsInventoryJson = new WebRequestHandler().Get("http://localhost:5127/Product/Inventory").Result;
+            _productServiceInventory.Products = JsonConvert.DeserializeObject<List<Product>>(productsInventoryJson);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
