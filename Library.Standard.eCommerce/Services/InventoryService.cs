@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Library.eCommerce.Services
 {
-    public class ProductService
+    public class InventoryService
     {
         private string persistPath
     = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}";
@@ -41,43 +41,18 @@ namespace Library.eCommerce.Services
             }
         }
 
-        private static ProductService current;
-        private static ProductService current2;
+        private static InventoryService current;
 
-        public static ProductService Current
+        public static InventoryService Current
         {
             get
             {
-                SetUpInventory();
                 if (current == null)
                 {
-                    current = new ProductService();
+                    current = new InventoryService();
                 }
-                SetUpInventory();
                 return current;
             }
-        }
-        public static ProductService Current2
-        {
-            get
-            {
-                SetUpCart();
-                if (current2 == null)
-                {
-                    current2 = new ProductService();
-                }
-                return current2;
-            }
-        }
-        private static void SetUpCart()
-        {
-            var productsCartJson = new WebRequestHandler().Get("http://localhost:5127/Cart").Result;
-            productList = JsonConvert.DeserializeObject<List<Product>>(productsCartJson);
-        }
-        private static void SetUpInventory()
-        {
-            var productsInventoryJson = new WebRequestHandler().Get("http://localhost:5127/Inventory").Result;
-            productList = JsonConvert.DeserializeObject<List<Product>>(productsInventoryJson);
         }
         // Should only ever be used when adding to inventory
         public void SetUID(Product product)
@@ -106,58 +81,33 @@ namespace Library.eCommerce.Services
             return ExistingProductInList;
         }
 
-        public ProductService()
+        public InventoryService()
         {
-            productList = new List<Product>();
+            var productsInventoryJson = new WebRequestHandler().Get("http://localhost:5127/Inventory").Result;
+            productList = JsonConvert.DeserializeObject<List<Product>>(productsInventoryJson);
         }
 
         public void AddOrUpdate(Product product)
         {
-            //if (product.Id <= 0)
-            //{
-            //    product.Id = NextId;
-            //    Products.Add(product);
-            //}
-            if (product is ProductByQuantity)
+            var response = new WebRequestHandler().Post("http://localhost:5127/Inventory/AddOrUpdate", product).Result;
+            var newProduct = JsonConvert.DeserializeObject<Product>(response);
+
+            var oldVersion = productList.FirstOrDefault(i => i.Id == newProduct.Id);
+            if (oldVersion != null)
             {
-                var response = new WebRequestHandler().Post("http://localhost:5127/ProductByQuantity/AddOrUpdate/Inventory", product).Result;
-                var newProduct = JsonConvert.DeserializeObject<ProductByQuantity>(response);
-
-                var oldVersion = productList.FirstOrDefault(i => i.Id == newProduct.Id);
-                if (oldVersion != null)
-                {
-                    var index = productList.IndexOf(oldVersion);
-                    productList.RemoveAt(index);
-                    productList.Insert(index, newProduct);
-                }
-                else
-                {
-                    productList.Add(newProduct);
-                }
-
+                var index = productList.IndexOf(oldVersion);
+                productList.RemoveAt(index);
+                productList.Insert(index, newProduct);
             }
-            else if (product is ProductByWeight)
+            else
             {
-                var response = new WebRequestHandler().Post("http://localhost:5127/ProductByWeight/AddOrUpdate", product).Result;
-                var newProduct = JsonConvert.DeserializeObject<ProductByWeight>(response);
-
-                var oldVersion = productList.FirstOrDefault(i => i.Id == newProduct.Id);
-                if (oldVersion != null)
-                {
-                    var index = productList.IndexOf(oldVersion);
-                    productList.RemoveAt(index);
-                    productList.Insert(index, newProduct);
-                }
-                else
-                {
-                    productList.Add(newProduct);
-                }
+                productList.Add(newProduct);
             }
         }
 
         public void Delete(int uid)
         {
-            var response = new WebRequestHandler().Get($"http://localhost:5127/Product/Delete/{uid}");
+            var response = new WebRequestHandler().Get($"http://localhost:5127/Inventory/Delete/{uid}");
             var productToDelete = productList.FirstOrDefault(t => t.UID == uid);
             if (productToDelete == null)
             {
@@ -198,12 +148,5 @@ namespace Library.eCommerce.Services
                 , new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
             File.WriteAllText(fileName, productsJson);
         }
-        private string _currentcart { get; set; }
-        public string CurrentCart
-        {
-            get { return _currentcart; }
-            set { _currentcart = value; }
-        }
-
     }
 }

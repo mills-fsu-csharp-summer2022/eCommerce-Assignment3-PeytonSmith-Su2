@@ -48,9 +48,9 @@ namespace eCommerce.UWP.Dialogs
 
             // Check if selected product for edit is in inventory, if so return that product in inventory and get the weight
             // If the requested weight is greater than the inventory's weight, take all inventory weight.
-            if (ProductService.Current.CheckProductInList(product))
+            if (InventoryService.Current.CheckProductInList(product))
             {
-                Product ExistingProduct = ProductService.Current.ReturnExistingProductInList();
+                Product ExistingProduct = InventoryService.Current.ReturnExistingProductInList();
                 if ((DataContext as ProductByWeight).Weight > (ExistingProduct as ProductByWeight).Weight+previousWeight)
                 {
                     (DataContext as ProductByWeight).Weight = (ExistingProduct as ProductByWeight).Weight+previousWeight;

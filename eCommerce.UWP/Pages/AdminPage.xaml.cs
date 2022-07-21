@@ -95,13 +95,13 @@ namespace eCommerce.UWP.Pages
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            ProductService.Current.Save("Inventory");
+            InventoryService.Current.Save("Inventory");
             (DataContext as MainViewModel).RefreshInventory();
         }
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
         {
-            ProductService.Current.Load("Inventory");
+            InventoryService.Current.Load("Inventory");
             (DataContext as MainViewModel).RefreshInventory();
         }
     }

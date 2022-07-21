@@ -12,7 +12,7 @@ namespace eCommerce.API.EC
 
         public Product Delete(int id)
         {
-            var prodToDelete = FakeDatabase.Inventory.FirstOrDefault(i => i.Id == id);
+            var prodToDelete = FakeDatabase.Inventory.FirstOrDefault(i => i.UID == id);
 
             if(prodToDelete != null)
             {

@@ -29,8 +29,8 @@ namespace eCommerce.UWP.ViewModels
         public bool SortTotalPriceCart { get; set; } = false;
         public Product SelectedProductInventory { get; set; }
         public Product SelectedProductCart { get; set; }
-        public ProductService _productServiceInventory;
-        public ProductService _productServiceCart;
+        public InventoryService _productServiceInventory;
+        public CartService _productServiceCart;
 
         public ObservableCollection<Product> ProductsInventory
         {
@@ -133,12 +133,8 @@ namespace eCommerce.UWP.ViewModels
 
         public MainViewModel()
         {
-            _productServiceCart = ProductService.Current2;
-            _productServiceInventory = ProductService.Current;
-            //var productsCartJson = new WebRequestHandler().Get("http://localhost:5127/Cart").Result;
-            //_productServiceCart.Products = JsonConvert.DeserializeObject<List<Product>>(productsCartJson);
-            //var productsInventoryJson = new WebRequestHandler().Get("http://localhost:5127/Inventory").Result;
-            //_productServiceInventory.Products = JsonConvert.DeserializeObject<List<Product>>(productsInventoryJson);
+            _productServiceCart = CartService.Current;
+            _productServiceInventory = InventoryService.Current;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

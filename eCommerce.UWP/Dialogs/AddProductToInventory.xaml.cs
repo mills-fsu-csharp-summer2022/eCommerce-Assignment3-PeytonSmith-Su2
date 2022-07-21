@@ -40,15 +40,15 @@ namespace eCommerce.UWP.Dialogs
                 {
                     (DataContext as ProductViewModel).Description = " ";
                 }
-                ProductService.Current.AddOrUpdate((DataContext as ProductViewModel).BoundProduct);
-                ProductService.Current.SetUID((DataContext as ProductViewModel).BoundProduct);
+                InventoryService.Current.AddOrUpdate((DataContext as ProductViewModel).BoundProduct);
+                InventoryService.Current.SetUID((DataContext as ProductViewModel).BoundProduct);
                 // Update product in cart with meta data changes
-                if (ProductService.Current2.CheckProductInList((DataContext as ProductViewModel).BoundProduct))
+                if (CartService.Current.CheckProductInList((DataContext as ProductViewModel).BoundProduct))
                 {
-                    ProductService.Current2.ReturnExistingProductInList().Name = ((DataContext as ProductViewModel).BoundProduct).Name;
-                    ProductService.Current2.ReturnExistingProductInList().Description = ((DataContext as ProductViewModel).BoundProduct).Description;
-                    ProductService.Current2.ReturnExistingProductInList().Price = ((DataContext as ProductViewModel).BoundProduct).Price;
-                    ProductService.Current2.ReturnExistingProductInList().Bogo = ((DataContext as ProductViewModel).BoundProduct).Bogo;
+                    CartService.Current.ReturnExistingProductInList().Name = ((DataContext as ProductViewModel).BoundProduct).Name;
+                    CartService.Current.ReturnExistingProductInList().Description = ((DataContext as ProductViewModel).BoundProduct).Description;
+                    CartService.Current.ReturnExistingProductInList().Price = ((DataContext as ProductViewModel).BoundProduct).Price;
+                    CartService.Current.ReturnExistingProductInList().Bogo = ((DataContext as ProductViewModel).BoundProduct).Bogo;
                 }
             }
             else if((DataContext as ProductViewModel).IsWeight)
@@ -61,15 +61,15 @@ namespace eCommerce.UWP.Dialogs
                 {
                     (DataContext as ProductViewModel).Description = " ";
                 }
-                ProductService.Current.AddOrUpdate((DataContext as ProductViewModel).BoundProduct);
-                ProductService.Current.SetUID((DataContext as ProductViewModel).BoundProduct);
+                InventoryService.Current.AddOrUpdate((DataContext as ProductViewModel).BoundProduct);
+                InventoryService.Current.SetUID((DataContext as ProductViewModel).BoundProduct);
                 // Update product in cart with meta data changes
-                if (ProductService.Current2.CheckProductInList((DataContext as ProductViewModel).BoundProduct))
+                if (CartService.Current.CheckProductInList((DataContext as ProductViewModel).BoundProduct))
                 {
-                    ProductService.Current2.ReturnExistingProductInList().Name = ((DataContext as ProductViewModel).BoundProduct).Name;
-                    ProductService.Current2.ReturnExistingProductInList().Description = ((DataContext as ProductViewModel).BoundProduct).Description;
-                    ProductService.Current2.ReturnExistingProductInList().Price = ((DataContext as ProductViewModel).BoundProduct).Price;
-                    ProductService.Current2.ReturnExistingProductInList().Bogo = ((DataContext as ProductViewModel).BoundProduct).Bogo;
+                    CartService.Current.ReturnExistingProductInList().Name = ((DataContext as ProductViewModel).BoundProduct).Name;
+                    CartService.Current.ReturnExistingProductInList().Description = ((DataContext as ProductViewModel).BoundProduct).Description;
+                    CartService.Current.ReturnExistingProductInList().Price = ((DataContext as ProductViewModel).BoundProduct).Price;
+                    CartService.Current.ReturnExistingProductInList().Bogo = ((DataContext as ProductViewModel).BoundProduct).Bogo;
                 }
             }
         }

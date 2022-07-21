@@ -53,15 +53,15 @@ namespace eCommerce.UWP.Dialogs
             {
                 (DataContext as ProductByWeight).Description = " ";
             }
-            ProductService.Current.AddOrUpdate(DataContext as ProductByWeight);
-            ProductService.Current.SetUID(DataContext as ProductByWeight);
+            InventoryService.Current.AddOrUpdate(DataContext as ProductByWeight);
+            InventoryService.Current.SetUID(DataContext as ProductByWeight);
             // Update product in cart with meta data changes
-            if (ProductService.Current2.CheckProductInList(DataContext as ProductByQuantity))
+            if (CartService.Current.CheckProductInList(DataContext as ProductByQuantity))
             {
-                ProductService.Current2.ReturnExistingProductInList().Name = (DataContext as ProductByWeight).Name;
-                ProductService.Current2.ReturnExistingProductInList().Description = (DataContext as ProductByWeight).Description;
-                ProductService.Current2.ReturnExistingProductInList().Price = (DataContext as ProductByWeight).Price;
-                ProductService.Current2.ReturnExistingProductInList().Bogo = (DataContext as ProductByWeight).Bogo;
+                CartService.Current.ReturnExistingProductInList().Name = (DataContext as ProductByWeight).Name;
+                CartService.Current.ReturnExistingProductInList().Description = (DataContext as ProductByWeight).Description;
+                CartService.Current.ReturnExistingProductInList().Price = (DataContext as ProductByWeight).Price;
+                CartService.Current.ReturnExistingProductInList().Bogo = (DataContext as ProductByWeight).Bogo;
             }
         }
 

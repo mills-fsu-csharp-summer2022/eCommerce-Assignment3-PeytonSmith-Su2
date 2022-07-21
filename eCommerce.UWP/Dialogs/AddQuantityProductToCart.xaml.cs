@@ -61,14 +61,14 @@ namespace eCommerce.UWP.Dialogs
                 product.Quantity -= DataContextProduct.Quantity;
             }
             // Check if the product is in the cart already, if so, add the quantity to the existing item
-            if (ProductService.Current2.CheckProductInList(product))
+            if (CartService.Current.CheckProductInList(product))
             {
-               Product ExistingProduct = ProductService.Current2.ReturnExistingProductInList();
+               Product ExistingProduct = CartService.Current.ReturnExistingProductInList();
                 (ExistingProduct as ProductByQuantity).Quantity += DataContextProduct.Quantity; 
             }
             else
             {
-                ProductService.Current2.AddOrUpdate(DataContextProduct);
+                CartService.Current.AddOrUpdate(DataContextProduct);
             }
         }
 
