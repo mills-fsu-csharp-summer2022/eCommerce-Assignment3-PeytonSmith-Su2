@@ -12,7 +12,7 @@ namespace Library.eCommerce.Models
     public class ProductByWeight : Product
     {
         new public double Weight { get; set; }
-        new public int WeightTest { get; set; }
+        public int WeightTest { get; set; }
         public override double TotalPrice { get { return Price * Weight; } set { } }
 
         public override string ToString()

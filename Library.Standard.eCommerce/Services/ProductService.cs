@@ -14,13 +14,12 @@ namespace Library.eCommerce.Services
     {
         private string persistPath
     = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}";
-        private List<Product> productList;
+        private static List<Product> productList;
 
         public List<Product> Products
         {
             get
             {
-                //var productsJson = new WebRequestHandler().Get("http://localhost:5127/Product");
                 return productList;
             }
             set
@@ -49,11 +48,12 @@ namespace Library.eCommerce.Services
         {
             get
             {
+                SetUpInventory();
                 if (current == null)
                 {
                     current = new ProductService();
                 }
-                //SetUpInventory();
+                SetUpInventory();
                 return current;
             }
         }
@@ -61,25 +61,24 @@ namespace Library.eCommerce.Services
         {
             get
             {
+                SetUpCart();
                 if (current2 == null)
                 {
                     current2 = new ProductService();
                 }
-                //SetUpCart();
                 return current2;
             }
         }
-        //private static void SetUpCart()
-        //{
-        //    var productsJson = new WebRequestHandler().Get("http://localhost:5127/Product/Cart").Result;
-        //    Current.Products = JsonConvert.DeserializeObject<List<Product>>(productsJson);
-        //}
-        //private static void SetUpInventory()
-        //{
-        //    var productsJson = new WebRequestHandler().Get("http://localhost:5127/Product/Inventory").Result;
-        //    productList = JsonConvert.DeserializeObject<List<Product>>(productsJson);
-        //}
-
+        private static void SetUpCart()
+        {
+            var productsCartJson = new WebRequestHandler().Get("http://localhost:5127/Cart").Result;
+            productList = JsonConvert.DeserializeObject<List<Product>>(productsCartJson);
+        }
+        private static void SetUpInventory()
+        {
+            var productsInventoryJson = new WebRequestHandler().Get("http://localhost:5127/Inventory").Result;
+            productList = JsonConvert.DeserializeObject<List<Product>>(productsInventoryJson);
+        }
         // Should only ever be used when adding to inventory
         public void SetUID(Product product)
         {
@@ -119,7 +118,6 @@ namespace Library.eCommerce.Services
             //    product.Id = NextId;
             //    Products.Add(product);
             //}
-
             if (product is ProductByQuantity)
             {
                 var response = new WebRequestHandler().Post("http://localhost:5127/ProductByQuantity/AddOrUpdate/Inventory", product).Result;

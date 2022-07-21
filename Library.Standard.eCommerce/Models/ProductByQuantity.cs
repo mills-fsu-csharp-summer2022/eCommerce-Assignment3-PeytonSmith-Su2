@@ -12,7 +12,7 @@ namespace Library.eCommerce.Models
     public class ProductByQuantity : Product
     {
         new public int Quantity { get; set; }
-        new public int QuantityTest { get; set; }
+        public int QuantityTest { get; set; }
 
         public override double TotalPrice { get { return Price * Quantity; } set { } }
 

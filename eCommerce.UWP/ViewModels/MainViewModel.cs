@@ -135,10 +135,10 @@ namespace eCommerce.UWP.ViewModels
         {
             _productServiceCart = ProductService.Current2;
             _productServiceInventory = ProductService.Current;
-            var productsCartJson = new WebRequestHandler().Get("http://localhost:5127/Product/Cart").Result;
-            _productServiceCart.Products = JsonConvert.DeserializeObject<List<Product>>(productsCartJson);
-            var productsInventoryJson = new WebRequestHandler().Get("http://localhost:5127/Product/Inventory").Result;
-            _productServiceInventory.Products = JsonConvert.DeserializeObject<List<Product>>(productsInventoryJson);
+            //var productsCartJson = new WebRequestHandler().Get("http://localhost:5127/Cart").Result;
+            //_productServiceCart.Products = JsonConvert.DeserializeObject<List<Product>>(productsCartJson);
+            //var productsInventoryJson = new WebRequestHandler().Get("http://localhost:5127/Inventory").Result;
+            //_productServiceInventory.Products = JsonConvert.DeserializeObject<List<Product>>(productsInventoryJson);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -172,7 +172,6 @@ namespace eCommerce.UWP.ViewModels
             // Check whether the product in quantity/weight and display the respective dialog
             ContentDialog diag = null;
             diag = new AddProductToInventory();
-
             await diag.ShowAsync();
             RefreshInventory();
         }
@@ -194,6 +193,7 @@ namespace eCommerce.UWP.ViewModels
                 {
                     throw new NotImplementedException();
                 }
+
                 await diag.ShowAsync();
                 RefreshCart();
                 RefreshInventory();
@@ -317,6 +317,7 @@ namespace eCommerce.UWP.ViewModels
 
         public void RefreshInventory()
         {
+            _ = new WebRequestHandler().Get("http://localhost:5127/Inventory/AddOrUpdate").Result;
             NotifyPropertyChanged("ProductsInventory");
         }
 
