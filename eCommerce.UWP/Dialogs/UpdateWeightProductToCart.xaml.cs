@@ -60,6 +60,8 @@ namespace eCommerce.UWP.Dialogs
                 {
                     (ExistingProduct as ProductByWeight).Weight += (previousWeight - DataContextProduct.Weight);
                 }
+                CartService.Current.AddOrUpdate(DataContext as ProductByWeight);
+                InventoryService.Current.AddOrUpdate(ExistingProduct as ProductByWeight);
             }
         }
 

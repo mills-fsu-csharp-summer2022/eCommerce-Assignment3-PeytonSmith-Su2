@@ -62,6 +62,7 @@ namespace eCommerce.UWP.Dialogs
                 CartService.Current.ReturnExistingProductInList().Description = (DataContext as ProductByWeight).Description;
                 CartService.Current.ReturnExistingProductInList().Price = (DataContext as ProductByWeight).Price;
                 CartService.Current.ReturnExistingProductInList().Bogo = (DataContext as ProductByWeight).Bogo;
+                CartService.Current.AddOrUpdate(CartService.Current.ReturnExistingProductInList());
             }
         }
 

@@ -59,6 +59,8 @@ namespace eCommerce.UWP.Dialogs
                 {
                     (ExistingProduct as ProductByQuantity).Quantity += (previousQuantity - DataContextProduct.Quantity);
                 }
+                CartService.Current.AddOrUpdate(DataContext as ProductByQuantity);
+                InventoryService.Current.AddOrUpdate(ExistingProduct as ProductByQuantity);
             }
         }
 

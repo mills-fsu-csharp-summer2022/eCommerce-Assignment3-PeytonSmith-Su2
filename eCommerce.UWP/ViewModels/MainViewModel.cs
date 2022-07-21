@@ -226,7 +226,9 @@ namespace eCommerce.UWP.ViewModels
                     {
                         (ExistingProduct as ProductByWeight).Weight += (SelectedProductCart as ProductByWeight).Weight;
                     }
+                    _productServiceInventory.AddOrUpdate(ExistingProduct);
                 }
+
                 _productServiceCart.Delete(SelectedProductCart.UID);
             }
             NotifyPropertyChanged("ProductsCart");
@@ -313,12 +315,12 @@ namespace eCommerce.UWP.ViewModels
 
         public void RefreshInventory()
         {
-            _ = new WebRequestHandler().Get("http://localhost:5127/Inventory/AddOrUpdate").Result;
             NotifyPropertyChanged("ProductsInventory");
         }
 
         public void RefreshCart()
         {
+            _productServiceCart.Save(_productServiceCart.CurrentCart);
             NotifyPropertyChanged("ProductsCart");
         }
 
@@ -359,43 +361,27 @@ namespace eCommerce.UWP.ViewModels
             SortNameCart = false;
             SortTotalPriceCart = true;
         }
-
-        private List<string> cartNames = new List<string>();
         private string selectedCartName;
         public List<string> CartNames
         {
-            get { return cartNames; }
-            set { cartNames = value; NotifyPropertyChanged("CartNames"); }
+            get { return _productServiceCart.cartNames; }
+            set { _productServiceCart.cartNames = value; NotifyPropertyChanged("CartNames"); }
+        }
+        public void AddCartNames()
+        {
+            _productServiceCart.AddCartNames();
         }
         public string SelectedCartName
         {
             get { return selectedCartName; }
             set { selectedCartName = value; }
         }
-        public void AddCartNames()
-        {
-            string directory = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}";
-            var jsonFiles = Directory.EnumerateFiles(directory, "*.json");
-            // Loop through all json files in local appdata folder
-            foreach (string currentFile in jsonFiles)
-            {
-                // If json file is not Inventory file add it to cartNames list
-                if (!(currentFile == (directory+@"\Inventory.json")))
-                {
-                    // Take away the directory path and the .json part of the currentFile string to get only the cart
-                    var cartNameScope = currentFile.Replace(directory, "");
-                    cartNameScope = cartNameScope.Replace(".json", "");
-                    cartNameScope = cartNameScope.Replace("\\", "");
-                    cartNames.Add(cartNameScope);
-                }
-            }
-        }
         public void LoadCartInventoryFromSelection()
         {
             if(SelectedCartName != null)
             {
                 _productServiceCart.Load(SelectedCartName);
-                _productServiceInventory.Load("Inventory");
+                //_productServiceInventory.Load("Inventory");
             }
         }
         private double _subtotal { get; set; } = 0;

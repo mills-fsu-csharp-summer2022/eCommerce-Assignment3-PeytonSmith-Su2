@@ -22,6 +22,13 @@ namespace eCommerce.API.Controllers
             return new CartEC().Get();
         }
 
+        [HttpPost("AddCart/{name}")]
+        public string Add(string name)
+        {
+            return new CartEC().Add(name);
+        }
+
+
         [HttpGet("{name}")]
         public List<Product> GetProductFromCart(string name)
         {
@@ -40,6 +47,11 @@ namespace eCommerce.API.Controllers
         {
             new CartEC().Delete(name, id);
             return id;
+        }
+        [HttpPost("AddProductsToCart/{name}")]
+        public List<Product> AddProductsToCart(string name, List<Product> productList)
+        {
+            return new CartEC().AddProductsToCart(name, productList);
         }
 
     }

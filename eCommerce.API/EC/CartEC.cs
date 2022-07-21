@@ -35,8 +35,16 @@ namespace eCommerce.API.EC
         {
             if (p.Id <= 0)
             {
+                // If the database doesn't have the cart name 
+                if (!FakeDatabase.Carts.ContainsKey(name))
+                {
+                    FakeDatabase.Carts.Add(name, new List<Product>() { p });
+                }
+                else
+                {
+                    FakeDatabase.Carts[name].Add(p);
+                }
                 p.Id = FakeDatabase.NextIdCart(name);
-                FakeDatabase.Carts[name].Add(p);
             }
             else
             {
@@ -48,6 +56,22 @@ namespace eCommerce.API.EC
                 FakeDatabase.Carts[name].Add(p);
             }
             return p;
+        }
+        public string Add(string name)
+        {
+            FakeDatabase.Carts[name] = new List<Product>();
+            return name;
+        }
+        public List<Product> AddProductsToCart(string name, List<Product> productList)
+        {
+            if(name != "NoNameCart" && FakeDatabase.Carts.ContainsKey("NoNameCart")){
+                FakeDatabase.Carts.Remove("NoNameCart");
+            }
+            if(productList != null)
+            {
+                FakeDatabase.Carts[name] = productList;
+            }
+            return productList ?? new List<Product>();
         }
     }
 }

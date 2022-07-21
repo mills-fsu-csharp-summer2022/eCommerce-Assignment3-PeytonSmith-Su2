@@ -49,6 +49,7 @@ namespace eCommerce.UWP.Dialogs
                     CartService.Current.ReturnExistingProductInList().Description = ((DataContext as ProductViewModel).BoundProduct).Description;
                     CartService.Current.ReturnExistingProductInList().Price = ((DataContext as ProductViewModel).BoundProduct).Price;
                     CartService.Current.ReturnExistingProductInList().Bogo = ((DataContext as ProductViewModel).BoundProduct).Bogo;
+                    CartService.Current.AddOrUpdate(CartService.Current.ReturnExistingProductInList());
                 }
             }
             else if((DataContext as ProductViewModel).IsWeight)
@@ -70,6 +71,7 @@ namespace eCommerce.UWP.Dialogs
                     CartService.Current.ReturnExistingProductInList().Description = ((DataContext as ProductViewModel).BoundProduct).Description;
                     CartService.Current.ReturnExistingProductInList().Price = ((DataContext as ProductViewModel).BoundProduct).Price;
                     CartService.Current.ReturnExistingProductInList().Bogo = ((DataContext as ProductViewModel).BoundProduct).Bogo;
+                    CartService.Current.AddOrUpdate(CartService.Current.ReturnExistingProductInList());
                 }
             }
         }

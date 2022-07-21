@@ -65,11 +65,13 @@ namespace eCommerce.UWP.Dialogs
             {
                 Product ExistingProduct = CartService.Current.ReturnExistingProductInList();
                 (ExistingProduct as ProductByWeight).Weight += DataContextProduct.Weight;
+                CartService.Current.AddOrUpdate(ExistingProduct);
             }
             else
             {
                 CartService.Current.AddOrUpdate(DataContextProduct);
             }
+            InventoryService.Current.AddOrUpdate(product);
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

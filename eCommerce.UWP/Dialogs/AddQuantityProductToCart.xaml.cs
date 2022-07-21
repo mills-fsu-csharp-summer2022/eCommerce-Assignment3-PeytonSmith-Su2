@@ -64,12 +64,14 @@ namespace eCommerce.UWP.Dialogs
             if (CartService.Current.CheckProductInList(product))
             {
                Product ExistingProduct = CartService.Current.ReturnExistingProductInList();
-                (ExistingProduct as ProductByQuantity).Quantity += DataContextProduct.Quantity; 
+                (ExistingProduct as ProductByQuantity).Quantity += DataContextProduct.Quantity;
+                CartService.Current.AddOrUpdate(ExistingProduct);
             }
             else
             {
                 CartService.Current.AddOrUpdate(DataContextProduct);
             }
+            InventoryService.Current.AddOrUpdate(product);
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

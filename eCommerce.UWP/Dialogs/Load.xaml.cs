@@ -39,6 +39,7 @@ namespace eCommerce.UWP.Dialogs
             (DataContext as MainViewModel).LoadCartInventoryFromSelection();
             if((DataContext as MainViewModel).SelectedCartName != null)
             {
+
                 CartService.Current.CurrentCart = (DataContext as MainViewModel).SelectedCartName;
             }
         }

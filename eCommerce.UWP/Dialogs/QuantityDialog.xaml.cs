@@ -62,6 +62,7 @@ namespace eCommerce.UWP.Dialogs
                 CartService.Current.ReturnExistingProductInList().Description = (DataContext as ProductByQuantity).Description;
                 CartService.Current.ReturnExistingProductInList().Price = (DataContext as ProductByQuantity).Price;
                 CartService.Current.ReturnExistingProductInList().Bogo = (DataContext as ProductByQuantity).Bogo;
+                CartService.Current.AddOrUpdate(CartService.Current.ReturnExistingProductInList());
             }
         }
 
