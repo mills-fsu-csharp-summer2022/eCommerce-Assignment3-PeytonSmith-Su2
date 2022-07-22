@@ -20,6 +20,8 @@ namespace Library.eCommerce.Services
         {
             get
             {
+                var productsInventoryJson = new WebRequestHandler().Get("http://localhost:5127/Inventory").Result;
+                productList = JsonConvert.DeserializeObject<List<Product>>(productsInventoryJson);
                 return productList;
             }
             set

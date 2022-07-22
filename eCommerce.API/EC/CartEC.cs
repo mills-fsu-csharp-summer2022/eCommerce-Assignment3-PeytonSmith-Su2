@@ -91,7 +91,6 @@ namespace eCommerce.API.EC
                 prodToReplace.Price = p.Price;
                 prodToReplace.UID = p.UID;
             }
-            //FakeDatabase.Carts[name].Add(p);
             return p;
         }
     }
