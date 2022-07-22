@@ -19,9 +19,9 @@ namespace eCommerce.API.EC
             return null;
         }
 
-        public Product Delete(string name, int id)
+        public Product Delete(string name, int UID)
         {
-            var prodToDelete = FakeDatabase.Carts[name].FirstOrDefault(i => i.Id == id);
+            var prodToDelete = FakeDatabase.Carts[name].FirstOrDefault(i => i.UID == UID);
 
             if (prodToDelete != null)
             {
@@ -73,14 +73,26 @@ namespace eCommerce.API.EC
         }
         public List<Product> AddProductsToCart(string name, List<Product> productList)
         {
-            if(name != "NoNameCart" && FakeDatabase.Carts.ContainsKey("NoNameCart")){
-                FakeDatabase.Carts.Remove("NoNameCart");
-            }
             if(productList != null)
             {
                 FakeDatabase.Carts[name] = productList;
             }
             return productList ?? new List<Product>();
+        }
+        public Product UpdateMetaData(string name, Product p)
+        {
+            var prodToReplace = FakeDatabase.Carts[name].FirstOrDefault(i => i.UID == p.UID);
+            if (prodToReplace != null)
+            {
+                // Update everything but the quantity/weight, used whenever updating info in inventory
+                prodToReplace.Bogo = p.Bogo;
+                prodToReplace.Name = p.Name;
+                prodToReplace.Description = p.Description;
+                prodToReplace.Price = p.Price;
+                prodToReplace.UID = p.UID;
+            }
+            //FakeDatabase.Carts[name].Add(p);
+            return p;
         }
     }
 }

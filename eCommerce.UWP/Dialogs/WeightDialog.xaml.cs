@@ -54,7 +54,6 @@ namespace eCommerce.UWP.Dialogs
                 (DataContext as ProductByWeight).Description = " ";
             }
             InventoryService.Current.AddOrUpdate(DataContext as ProductByWeight);
-            InventoryService.Current.SetUID(DataContext as ProductByWeight);
             // Update product in cart with meta data changes
             if (CartService.Current.CheckProductInList(DataContext as ProductByQuantity))
             {
@@ -63,6 +62,7 @@ namespace eCommerce.UWP.Dialogs
                 CartService.Current.ReturnExistingProductInList().Price = (DataContext as ProductByWeight).Price;
                 CartService.Current.ReturnExistingProductInList().Bogo = (DataContext as ProductByWeight).Bogo;
                 CartService.Current.AddOrUpdate(CartService.Current.ReturnExistingProductInList());
+                CartService.Current.UpdateProductInAllCarts(CartService.Current.ReturnExistingProductInList());
             }
         }
 

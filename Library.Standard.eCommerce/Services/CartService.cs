@@ -53,7 +53,22 @@ namespace Library.eCommerce.Services
                 return current;
             }
         }
+        public void UpdateProductInAllCarts(Product product)
+        {
+            AddCartNames();
+            foreach(var carts in cartNames)
+            {
+                var productsJson = new WebRequestHandler().Get($"http://localhost:5127/Cart/{carts}").Result;
+                var productListTemp = JsonConvert.DeserializeObject<List<Product>>(productsJson);
 
+                var productFound = productListTemp.FirstOrDefault(i => i.UID == product.UID);
+                if(productFound != null)
+                {
+                    // Update from database by deleting/adding product to all carts in database
+                    var response = new WebRequestHandler().Post($"http://localhost:5127/Cart/UpdateMetaData/{carts}", product).Result;
+                }
+            }
+        }
         private Product ExistingProductInList { get; set; }
         public bool CheckProductInList(Product product)
         {
@@ -113,6 +128,7 @@ namespace Library.eCommerce.Services
                 return;
             }
             productList.Remove(productToDelete);
+            response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddProductsToCart/{CurrentCart}", productList);
         }
 
         public void Load(string fileName = null)

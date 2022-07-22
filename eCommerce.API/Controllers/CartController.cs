@@ -42,15 +42,20 @@ namespace eCommerce.API.Controllers
         [HttpPost("AddOrUpdate/{name}")]
         public Product AddOrUpdate(string name, Product product)
         {
-            new CartEC().AddOrUpdate(name, product);
+            return new CartEC().AddOrUpdate(name, product);
+        }
+        [HttpPost("UpdateMetaData/{name}")]
+        public Product UpdateMetaData(string name, Product product)
+        {
+            new CartEC().UpdateMetaData(name, product);
             return product;
         }
 
-        [HttpGet("Delete/{name}/{id}")]
-        public int Delete(string name, int id)
+        [HttpGet("Delete/{name}/{uid}")]
+        public int Delete(string name, int uid)
         {
-            new CartEC().Delete(name, id);
-            return id;
+            new CartEC().Delete(name, uid);
+            return uid;
         }
         [HttpPost("AddProductsToCart/{name}")]
         public List<Product> AddProductsToCart(string name, List<Product> productList)
