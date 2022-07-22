@@ -117,47 +117,64 @@ namespace Library.eCommerce.Services
 
         public void Load(string fileName = null)
         {
-            if (string.IsNullOrEmpty(fileName))
-            {
-                fileName = $"{persistPath}\\SaveData.json";
-            }
-            else
-            {
-                fileName = $"{persistPath}\\{fileName}.json";
-            }
+            //if (string.IsNullOrEmpty(fileName))
+            //{
+            //    fileName = $"{persistPath}\\SaveData.json";
+            //}
+            //else
+            //{
+            //    fileName = $"{persistPath}\\{fileName}.json";
+            //}
 
-            var productsJson = File.ReadAllText(fileName);
-            productList = JsonConvert.DeserializeObject<List<Product>>
-                (productsJson, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All })
-                ?? new List<Product>();
+            //var productsJson = File.ReadAllText(fileName);
+            //productList = JsonConvert.DeserializeObject<List<Product>>
+            //    (productsJson, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All })
+            //    ?? new List<Product>();
 
+            var productsJson = new WebRequestHandler().Get($"http://localhost:5127/Cart/{fileName}").Result;
+            productList = JsonConvert.DeserializeObject<List<Product>>(productsJson);
+            CurrentCart = fileName;
         }
 
         public void Save(string fileName = null)
         {
-            var response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddCart/{fileName}", fileName);
             if (string.IsNullOrEmpty(fileName))
             {
                 fileName = "NoNameCart";
             }
-            else if(CurrentCart == "NoNameCart")
+            else if(CurrentCart != null)
             {
                 cartNames.Remove(CurrentCart);
                 cartNames.Add(fileName);
             }
+            // Delete the current cart in the database, and then add it with the new name 
+            var response = new WebRequestHandler().Get($"http://localhost:5127/Cart/DeleteCart/{CurrentCart}");
+            response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddCart/{fileName}", fileName);
             response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddProductsToCart/{fileName}", productList);
+            _currentcart = fileName;
+            //if (string.IsNullOrEmpty(fileName))
+            //{
+            //    fileName = $"{persistPath}\\SaveData.json";
+            //}
+            //else
+            //{
+            //    fileName = $"{persistPath}\\{fileName}.json";
+            //}
+            //_currentcart = fileName;
+            //var productsJson = JsonConvert.SerializeObject(productList
+            //    , new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+            //File.WriteAllText(fileName, productsJson);
+        }
+        public void NewCart(string fileName = null)
+        {
             if (string.IsNullOrEmpty(fileName))
             {
-                fileName = $"{persistPath}\\SaveData.json";
+                fileName = "NoNameCart";
             }
-            else
-            {
-                fileName = $"{persistPath}\\{fileName}.json";
-            }
-            _currentcart = fileName;
-            var productsJson = JsonConvert.SerializeObject(productList
-                , new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
-            File.WriteAllText(fileName, productsJson);
+            cartNames.Add(fileName);
+            productList.Clear();
+            var response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddCart/{fileName}", fileName);
+            response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddProductsToCart/{fileName}", productList);
         }
         private string _currentcart { get; set; }
         public string CurrentCart

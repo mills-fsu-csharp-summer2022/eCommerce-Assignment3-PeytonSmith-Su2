@@ -1,0 +1,25 @@
+﻿<ContentDialog
+    x:Class="eCommerce.UWP.Dialogs.New"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:eCommerce.UWP.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Create New Cart"
+    PrimaryButtonText="Create"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Center" Grid.Row="0" Text="Name of Cart"></TextBlock>
+            <TextBox Grid.Row="1" Text="{Binding NewFileName, Mode=TwoWay}"/>
+        </Grid>
+    </Grid>
+</ContentDialog>

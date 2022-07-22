@@ -138,6 +138,9 @@
     <Compile Include="Dialogs\Load.xaml.cs">
       <DependentUpon>Load.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\New.xaml.cs">
+      <DependentUpon>New.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\PaymentInfo.xaml.cs">
       <DependentUpon>PaymentInfo.xaml</DependentUpon>
     </Compile>
@@ -208,6 +211,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\Load.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\New.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -27,7 +27,11 @@ namespace eCommerce.API.Controllers
         {
             return new CartEC().Add(name);
         }
-
+        [HttpGet("DeleteCart/{name}")]
+        public string DeleteCart(string name)
+        {
+            return new CartEC().DeleteCart(name);
+        }
 
         [HttpGet("{name}")]
         public List<Product> GetProductFromCart(string name)

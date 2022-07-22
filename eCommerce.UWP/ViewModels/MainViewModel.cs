@@ -286,6 +286,13 @@ namespace eCommerce.UWP.ViewModels
             NotifyPropertyChanged("ProductsCart");
             NotifyPropertyChanged("ProductsInventory");
         }
+        public async void New()
+        {
+            var diag = new New();
+            await diag.ShowAsync();
+            NotifyPropertyChanged("ProductsCart");
+            NotifyPropertyChanged("ProductsInventory");
+        }
         public async void Load()
         {
             NotifyPropertyChanged("CartNames");

@@ -62,6 +62,15 @@ namespace eCommerce.API.EC
             FakeDatabase.Carts[name] = new List<Product>();
             return name;
         }
+        public string DeleteCart(string name)
+        {
+            // Check if database contains name of cart, if so delete
+            if (FakeDatabase.Carts.ContainsKey(name))
+            {
+                FakeDatabase.Carts.Remove(name);
+            }
+            return name;
+        }
         public List<Product> AddProductsToCart(string name, List<Product> productList)
         {
             if(name != "NoNameCart" && FakeDatabase.Carts.ContainsKey("NoNameCart")){

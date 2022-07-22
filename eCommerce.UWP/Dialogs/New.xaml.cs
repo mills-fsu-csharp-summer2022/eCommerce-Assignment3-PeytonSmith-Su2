@@ -1,0 +1,47 @@
+﻿using Library.eCommerce.Services;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+
+// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+
+namespace eCommerce.UWP.Dialogs
+{
+    public sealed partial class New : ContentDialog
+    {
+        private string fileName;
+        public string NewFileName
+        {
+            get { return fileName; }
+            set { fileName = value; }
+        }
+        public New()
+        {
+            this.InitializeComponent();
+            DataContext = this;
+        }
+
+        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            // Save inventory to Inventory.json, cart to given fileName.json and set the current cart to the filename
+            InventoryService.Current.Save("Inventory");
+            CartService.Current.NewCart(fileName);
+            CartService.Current.CurrentCart = fileName;
+        }
+
+        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+        }
+    }
+}

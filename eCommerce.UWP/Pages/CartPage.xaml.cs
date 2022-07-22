@@ -66,7 +66,14 @@ namespace eCommerce.UWP.Pages
                 vm.RemoveCart();
             }
         }
-
+        private void NewCartButton_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as MainViewModel;
+            if (vm != null)
+            {
+                vm.New();
+            }
+        }
         private void SaveCartButton_Click(object sender, RoutedEventArgs e)
         {
             var vm = DataContext as MainViewModel;
