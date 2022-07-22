@@ -135,7 +135,10 @@ namespace Library.eCommerce.Services
             productList = JsonConvert.DeserializeObject<List<Product>>(productsJson);
             CurrentCart = fileName;
         }
-
+        public void DeleteCart(string fileName = null)
+        {
+            var response = new WebRequestHandler().Get($"http://localhost:5127/Cart/DeleteCart/{CurrentCart}");
+        }
         public void Save(string fileName = null)
         {
             if (string.IsNullOrEmpty(fileName))

@@ -434,12 +434,7 @@ namespace eCommerce.UWP.ViewModels
         }
         public void DeleteCart()
         {
-            // Check if there is a current cart, if so, delete it from the local appdata folder
-            if(_productServiceCart.CurrentCart != null)
-            {
-                string directory = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}";
-                File.Delete(directory+@"\"+_productServiceCart.CurrentCart+".json");
-            }
+            _productServiceCart.DeleteCart(_productServiceCart.CurrentCart);
         }
     }
 }
