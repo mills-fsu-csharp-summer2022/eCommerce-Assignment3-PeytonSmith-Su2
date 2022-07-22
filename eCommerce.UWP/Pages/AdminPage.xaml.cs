@@ -92,17 +92,5 @@ namespace eCommerce.UWP.Pages
                 await vm.AddProduct();
             }
         }
-
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            InventoryService.Current.Save("Inventory");
-            (DataContext as MainViewModel).RefreshInventory();
-        }
-
-        private void LoadButton_Click(object sender, RoutedEventArgs e)
-        {
-            InventoryService.Current.Load("Inventory");
-            (DataContext as MainViewModel).RefreshInventory();
-        }
     }
 }

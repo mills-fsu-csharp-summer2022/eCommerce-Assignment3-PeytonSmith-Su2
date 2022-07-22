@@ -115,38 +115,5 @@ namespace Library.eCommerce.Services
             }
             productList.Remove(productToDelete);
         }
-
-        public void Load(string fileName = null)
-        {
-            //if (string.IsNullOrEmpty(fileName))
-            //{
-            //    fileName = $"{persistPath}\\SaveData.json";
-            //}
-            //else
-            //{
-            //    fileName = $"{persistPath}\\{fileName}.json";
-            //}
-
-            //var productsJson = File.ReadAllText(fileName);
-            //productList = JsonConvert.DeserializeObject<List<Product>>
-            //    (productsJson, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All })
-            //    ?? new List<Product>();
-
-        }
-
-        public void Save(string fileName = null)
-        {
-            //if (string.IsNullOrEmpty(fileName))
-            //{
-            //    fileName = $"{persistPath}\\SaveData.json";
-            //}
-            //else
-            //{
-            //    fileName = $"{persistPath}\\{fileName}.json";
-            //}
-            //var productsJson = JsonConvert.SerializeObject(productList
-            //    , new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
-            //File.WriteAllText(fileName, productsJson);
-        }
     }
 }

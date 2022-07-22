@@ -301,18 +301,9 @@ namespace eCommerce.UWP.ViewModels
             NotifyPropertyChanged("ProductsCart");
             NotifyPropertyChanged("ProductsInventory");
         }
-        public void SaveInventory(string fileName)
-        {
-            _productServiceInventory.Save(fileName);
-        }
         public void SaveCart(string fileName)
         {
             _productServiceCart.Save(fileName);
-        }
-        public void LoadInventory(string fileName)
-        {
-            _productServiceInventory.Load(fileName);
-            NotifyPropertyChanged("ProductsInventory");
         }
         public void LoadCart(string fileName)
         {

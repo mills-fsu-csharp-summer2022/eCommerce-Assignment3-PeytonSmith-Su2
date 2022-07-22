@@ -179,9 +179,9 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Button BorderThickness="2" BorderBrush="Black" Grid.Row="0" Content="New Cart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="NewCartButton_Click" Background="Aqua" Foreground="Black" FontFamily="Lato Light" FontSize="25"></Button>
-                    <Button BorderThickness="2" BorderBrush="Black" Grid.Row="1" Content="Save Cart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SaveCartButton_Click" Background="MediumAquamarine" Foreground="Black" FontFamily="Lato Light" FontSize="25"></Button>
-                    <Button BorderThickness="2" BorderBrush="Black" Grid.Row="2" Content="Load Cart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="LoadCartButton_Click" Background="Aquamarine" Foreground="Black" FontFamily="Lato Light" FontSize="25"></Button>
+                    <Button BorderThickness="2" BorderBrush="Black" Grid.Row="0" Content="New Cart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="NewCartButton_Click" Background="Aqua" Foreground="Black" FontFamily="Lato Light" FontSize="20"></Button>
+                    <Button BorderThickness="2" BorderBrush="Black" Grid.Row="1" Content="Save Cart As" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SaveCartButton_Click" Background="MediumAquamarine" Foreground="Black" FontFamily="Lato Light" FontSize="20"></Button>
+                    <Button BorderThickness="2" BorderBrush="Black" Grid.Row="2" Content="Load Cart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="LoadCartButton_Click" Background="Aquamarine" Foreground="Black" FontFamily="Lato Light" FontSize="20"></Button>
                 </Grid>
                 <Button BorderThickness="2" BorderBrush="Black" Grid.Row="2" Content="Go Back" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray" Foreground="Black" FontFamily="Lato Light" Click="GoBackButton_Click" FontSize="30" Margin="0,10,0,10"/>
             </Grid>
