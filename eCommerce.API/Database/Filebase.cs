@@ -13,7 +13,7 @@ namespace eCommerce.API.Database
         private string _root;
         private string _inventoryRoot;
         private string _cartRoot;
-        private static Filebase _instance;
+        private static Filebase? _instance;
 
         public static List<Product> SampleInventoryItems = new List<Product>
         {
@@ -128,12 +128,16 @@ namespace eCommerce.API.Database
             }
             return _products;
         }
-        public List<string> GetListOfCarts()
+        public List<string?> GetListOfCarts()
         {
-            List<string> listOfCarts = Directory.GetDirectories(_cartRoot)
+            List<string?> listOfCarts = Directory.GetDirectories(_cartRoot)
                             .Select(Path.GetFileName)
                             .ToList();
-            return listOfCarts;
+            if(listOfCarts != null)
+            {
+                return listOfCarts;
+            }
+            return new List<string?>();
         }
 
         public int DeleteCart(string name, int id)
@@ -200,7 +204,11 @@ namespace eCommerce.API.Database
         {
             var productList = GetCart(name);
             var productFound = productList.FirstOrDefault(i => i.UID == product.UID);
-            return productFound;
+            if(productFound != null)
+            {
+                return productFound;
+            }
+            return new Product();
         }
         public int NextIdInventory()
         {

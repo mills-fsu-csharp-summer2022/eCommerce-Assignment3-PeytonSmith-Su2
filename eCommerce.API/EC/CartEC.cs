@@ -6,7 +6,7 @@ namespace eCommerce.API.EC
 {
     public class CartEC
     {
-        public List<string> Get()
+        public List<string?> Get()
         {
             return Filebase.Current.GetListOfCarts();
         }
@@ -103,9 +103,9 @@ namespace eCommerce.API.EC
                 prodToReplace.Description = p.Description;
                 prodToReplace.Price = p.Price;
                 prodToReplace.UID = p.UID;
+                return Filebase.Current.AddOrUpdateCart(name, prodToReplace);
             }
-            Filebase.Current.AddOrUpdateCart(name, prodToReplace);
-            return prodToReplace;
+            return new Product();
         }
     }
 }

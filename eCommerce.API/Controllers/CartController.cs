@@ -17,7 +17,7 @@ namespace eCommerce.API.Controllers
         }
 
         [HttpGet]
-        public List<string> Get()
+        public List<string?> Get()
         {
             return new CartEC().Get();
         }
