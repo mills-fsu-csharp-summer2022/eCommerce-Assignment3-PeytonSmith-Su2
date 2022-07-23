@@ -42,7 +42,18 @@ namespace Library.eCommerce.Services
                 return Products.Select(t => t.Id).Max() + 1;
             }
         }
+        public int NextUid
+        {
+            get
+            {
+                if (!Products.Any())
+                {
+                    return 1;
+                }
 
+                return Products.Select(t => t.UID).Max() + 1;
+            }
+        }
         private static InventoryService current;
 
         public static InventoryService Current
@@ -59,7 +70,7 @@ namespace Library.eCommerce.Services
         // Should only ever be used when adding to inventory
         public void SetUID(Product product)
         {
-            product.UID = NextId;
+            product.UID = NextUid;
         }
 
         private Product ExistingProductInList { get; set; }
@@ -105,18 +116,18 @@ namespace Library.eCommerce.Services
             {
                 productList.Add(newProduct);
             }
+            response = new WebRequestHandler().Post($"http://localhost:5127/Inventory/AddProductsToInventory", productList).Result;
         }
 
         public void Delete(int uid)
         {
-            var response = new WebRequestHandler().Get($"http://localhost:5127/Inventory/Delete/{uid}");
-            var productToDelete = productList.FirstOrDefault(t => t.UID == uid);
+            var response = new WebRequestHandler().Get($"http://localhost:5127/Inventory/Delete/{uid}").Result;
+            var productToDelete = productList.FirstOrDefault(t => t.Id == uid);
             if (productToDelete == null)
             {
                 return;
             }
             productList.Remove(productToDelete);
-            //response = new WebRequestHandler().Post($"http://localhost:5127/Inventory/AddProductsToInventory", productList);
         }
     }
 }

@@ -81,7 +81,7 @@ namespace Library.eCommerce.Services
                 if (productFound != null)
                 {
                     // Delete from database by deleting all products to all carts in database
-                    var response = new WebRequestHandler().Get($"http://localhost:5127/Cart/Delete/{carts}/{product.UID}");
+                    var response = new WebRequestHandler().Get($"http://localhost:5127/Cart/Delete/{carts}/{product.UID}").Result;
                 }
             }
         }
@@ -137,14 +137,14 @@ namespace Library.eCommerce.Services
 
         public void Delete(int uid)
         {
-            var response = new WebRequestHandler().Get($"http://localhost:5127/Cart/Delete/{CurrentCart}/{uid}");
+            var response = new WebRequestHandler().Get($"http://localhost:5127/Cart/Delete/{CurrentCart}/{uid}").Result;
             var productToDelete = productList.FirstOrDefault(t => t.UID == uid);
             if (productToDelete == null)
             {
                 return;
             }
             productList.Remove(productToDelete);
-            response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddProductsToCart/{CurrentCart}", productList);
+            response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddProductsToCart/{CurrentCart}", productList).Result;
         }
 
         public void Load(string fileName = null)
@@ -169,7 +169,7 @@ namespace Library.eCommerce.Services
         }
         public void DeleteCart(string fileName = null)
         {
-            var response = new WebRequestHandler().Get($"http://localhost:5127/Cart/DeleteCart/{CurrentCart}");
+            var response = new WebRequestHandler().Get($"http://localhost:5127/Cart/DeleteCart/{CurrentCart}").Result;
         }
         public void Save(string fileName = null)
         {
@@ -183,9 +183,9 @@ namespace Library.eCommerce.Services
                 cartNames.Add(fileName);
             }
             // Delete the current cart in the database, and then add it with the new name 
-            var response = new WebRequestHandler().Get($"http://localhost:5127/Cart/DeleteCart/{CurrentCart}");
-            response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddCart/{fileName}", fileName);
-            response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddProductsToCart/{fileName}", productList);
+            var response = new WebRequestHandler().Get($"http://localhost:5127/Cart/DeleteCart/{CurrentCart}").Result;
+            response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddCart/{fileName}", fileName).Result;
+            response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddProductsToCart/{fileName}", productList).Result;
             _currentcart = fileName;
             //if (string.IsNullOrEmpty(fileName))
             //{
@@ -208,8 +208,8 @@ namespace Library.eCommerce.Services
             }
             cartNames.Add(fileName);
             productList.Clear();
-            var response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddCart/{fileName}", fileName);
-            response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddProductsToCart/{fileName}", productList);
+            var response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddCart/{fileName}", fileName).Result;
+            response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddProductsToCart/{fileName}", productList).Result;
         }
         private string _currentcart { get; set; }
         public string CurrentCart

@@ -58,6 +58,8 @@ namespace eCommerce.API.Database
             {
                 product.Id = NextIdInventory();
             }
+            product.UID = product.Id;
+
             //go to the right place
             string path;
             path = $"{_inventoryRoot}/{product.Id}.json";
@@ -185,10 +187,6 @@ namespace eCommerce.API.Database
             foreach(var product in productList)
             {
                 AddOrUpdateCart(name, product);
-            }
-            if(productList.Count == 0)
-            {
-                DeleteCartEntirely(name);
             }
             return productList;
         }
