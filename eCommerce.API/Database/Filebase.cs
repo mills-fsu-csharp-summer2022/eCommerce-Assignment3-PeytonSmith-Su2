@@ -212,6 +212,10 @@ namespace eCommerce.API.Database
         }
         public int NextIdInventory()
         {
+            if (InventoryEmpty())
+            {
+                return 1;
+            }
             return GetInventory().Select(i => i.Id).Max() + 1;
         }
         public int NextIdCart(string name)
@@ -225,6 +229,12 @@ namespace eCommerce.API.Database
         public bool CartEmpty(string name)
         {
             var root = new DirectoryInfo($"{_cartRoot}/{name}");
+            var count = root.GetFiles().Length;
+            return count == 0;
+        }
+        public bool InventoryEmpty()
+        {
+            var root = new DirectoryInfo(_inventoryRoot);
             var count = root.GetFiles().Length;
             return count == 0;
         }
