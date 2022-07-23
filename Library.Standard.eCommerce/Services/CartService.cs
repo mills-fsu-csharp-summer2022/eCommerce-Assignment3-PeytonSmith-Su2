@@ -53,6 +53,8 @@ namespace Library.eCommerce.Services
                 return current;
             }
         }
+        // Updates a product in all carts, used when updating a product in inventory
+        // it will update all products in all carts
         public void UpdateProductInAllCarts(Product product)
         {
             AddCartNames();
@@ -69,6 +71,8 @@ namespace Library.eCommerce.Services
                 }
             }
         }
+        // Deletes a product from all carts, used when deleting a product from inventory
+        // it will delete all products in all carts
         public void DeleteProductInAllCarts(Product product)
         {
             AddCartNames();
@@ -85,6 +89,7 @@ namespace Library.eCommerce.Services
                 }
             }
         }
+        // Check if a product is already in the list, if so set ExistingProductInList
         private Product ExistingProductInList { get; set; }
         public bool CheckProductInList(Product product)
         {
@@ -108,11 +113,9 @@ namespace Library.eCommerce.Services
 
         public CartService()
         {
-            //var productsCartJson = new WebRequestHandler().Get("http://localhost:5127/Cart").Result;
-            //productList = JsonConvert.DeserializeObject<List<Product>>(productsCartJson);
             productList = new List<Product>();
         }
-
+        // Add or update product from productList and updates on the server
         public void AddOrUpdate(Product product)
         {
             if (CurrentCart == null)
@@ -134,7 +137,7 @@ namespace Library.eCommerce.Services
                 productList.Add(newProduct);
             }
         }
-
+        // Delete product from productList and updates on the server
         public void Delete(int uid)
         {
             var response = new WebRequestHandler().Get($"http://localhost:5127/Cart/Delete/{CurrentCart}/{uid}").Result;
@@ -146,31 +149,20 @@ namespace Library.eCommerce.Services
             productList.Remove(productToDelete);
             response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddProductsToCart/{CurrentCart}", productList).Result;
         }
-
+        // Load list of products from a cart from the server
         public void Load(string fileName = null)
         {
-            //if (string.IsNullOrEmpty(fileName))
-            //{
-            //    fileName = $"{persistPath}\\SaveData.json";
-            //}
-            //else
-            //{
-            //    fileName = $"{persistPath}\\{fileName}.json";
-            //}
-
-            //var productsJson = File.ReadAllText(fileName);
-            //productList = JsonConvert.DeserializeObject<List<Product>>
-            //    (productsJson, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All })
-            //    ?? new List<Product>();
-
             var productsJson = new WebRequestHandler().Get($"http://localhost:5127/Cart/{fileName}").Result;
             productList = JsonConvert.DeserializeObject<List<Product>>(productsJson);
             CurrentCart = fileName;
         }
+        // Deletes a cart from the database
+        // Used at the end of the program after checkout
         public void DeleteCart(string fileName = null)
         {
             var response = new WebRequestHandler().Get($"http://localhost:5127/Cart/DeleteCart/{CurrentCart}").Result;
         }
+        // Saves cart products to the database
         public void Save(string fileName = null)
         {
             if (string.IsNullOrEmpty(fileName))
@@ -187,19 +179,9 @@ namespace Library.eCommerce.Services
             response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddCart/{fileName}", fileName).Result;
             response = new WebRequestHandler().Post($"http://localhost:5127/Cart/AddProductsToCart/{fileName}", productList).Result;
             _currentcart = fileName;
-            //if (string.IsNullOrEmpty(fileName))
-            //{
-            //    fileName = $"{persistPath}\\SaveData.json";
-            //}
-            //else
-            //{
-            //    fileName = $"{persistPath}\\{fileName}.json";
-            //}
-            //_currentcart = fileName;
-            //var productsJson = JsonConvert.SerializeObject(productList
-            //    , new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
-            //File.WriteAllText(fileName, productsJson);
         }
+
+        // Used when adding a new cart on the client, clears the list and updates the info the server
         public void NewCart(string fileName = null)
         {
             if (string.IsNullOrEmpty(fileName))
@@ -217,25 +199,10 @@ namespace Library.eCommerce.Services
             get { return _currentcart; }
             set { _currentcart = value; }
         }
-
+        // Grabs cart names from server and puts it in cartNames
         public List<string> cartNames = new List<string>();
         public void AddCartNames()
         {
-            //string directory = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}";
-            //var jsonFiles = Directory.EnumerateFiles(directory, "*.json");
-            //// Loop through all json files in local appdata folder
-            //foreach (string currentFile in jsonFiles)
-            //{
-            //    // If json file is not Inventory file add it to cartNames list
-            //    if (!(currentFile == (directory + @"\Inventory.json")))
-            //    {
-            //        // Take away the directory path and the .json part of the currentFile string to get only the cart
-            //        var cartNameScope = currentFile.Replace(directory, "");
-            //        cartNameScope = cartNameScope.Replace(".json", "");
-            //        cartNameScope = cartNameScope.Replace("\\", "");
-            //        cartNames.Add(cartNameScope);
-            //    }
-            //}
             var listOfCarts = new WebRequestHandler().Get("http://localhost:5127/Cart").Result;
             cartNames = JsonConvert.DeserializeObject<List<string>>(listOfCarts);
         }

@@ -72,7 +72,7 @@ namespace Library.eCommerce.Services
         {
             product.UID = NextUid;
         }
-
+        // Checks if a specific product is in the list, if so set ExistingProductInList
         private Product ExistingProductInList { get; set; }
         public bool CheckProductInList(Product product)
         {
@@ -94,12 +94,13 @@ namespace Library.eCommerce.Services
             return ExistingProductInList;
         }
 
+        // Grab all products from the server at startup
         public InventoryService()
         {
             var productsInventoryJson = new WebRequestHandler().Get("http://localhost:5127/Inventory").Result;
             productList = JsonConvert.DeserializeObject<List<Product>>(productsInventoryJson);
         }
-
+        // Add or updates a product in productList and updates on the server
         public void AddOrUpdate(Product product)
         {
             var response = new WebRequestHandler().Post("http://localhost:5127/Inventory/AddOrUpdate", product).Result;
@@ -118,7 +119,7 @@ namespace Library.eCommerce.Services
             }
             response = new WebRequestHandler().Post($"http://localhost:5127/Inventory/AddProductsToInventory", productList).Result;
         }
-
+        // Deletes a product in productList and updates on the server
         public void Delete(int uid)
         {
             var response = new WebRequestHandler().Get($"http://localhost:5127/Inventory/Delete/{uid}").Result;
