@@ -69,6 +69,22 @@ namespace Library.eCommerce.Services
                 }
             }
         }
+        public void DeleteProductInAllCarts(Product product)
+        {
+            AddCartNames();
+            foreach (var carts in cartNames)
+            {
+                var productsJson = new WebRequestHandler().Get($"http://localhost:5127/Cart/{carts}").Result;
+                var productListTemp = JsonConvert.DeserializeObject<List<Product>>(productsJson);
+
+                var productFound = productListTemp.FirstOrDefault(i => i.UID == product.UID);
+                if (productFound != null)
+                {
+                    // Delete from database by deleting all products to all carts in database
+                    var response = new WebRequestHandler().Get($"http://localhost:5127/Cart/Delete/{carts}/{product.UID}");
+                }
+            }
+        }
         private Product ExistingProductInList { get; set; }
         public bool CheckProductInList(Product product)
         {

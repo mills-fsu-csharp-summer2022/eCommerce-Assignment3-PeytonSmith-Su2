@@ -7,38 +7,48 @@ namespace eCommerce.API.EC
     {
         public List<Product> Get()
         {
-            return FakeDatabase.Inventory;
+            return Filebase.Current.GetInventory();
         }
 
-        public Product Delete(int id)
+        public int Delete(int id)
         {
-            var prodToDelete = FakeDatabase.Inventory.FirstOrDefault(i => i.UID == id);
+            //var prodToDelete = FakeDatabase.Inventory.FirstOrDefault(i => i.UID == id);
 
-            if(prodToDelete != null)
-            {
-                FakeDatabase.Inventory.Remove(prodToDelete);
-            }
+            //if(prodToDelete != null)
+            //{
+            //    FakeDatabase.Inventory.Remove(prodToDelete);
+            //}
 
-            return prodToDelete ?? new Product();
+            //return prodToDelete ?? new Product();
+
+            return Filebase.Current.DeleteInventory(id);
         }
 
         public Product AddOrUpdate(Product p)
         {
-            if(p.Id <= 0)
+            //if(p.Id <= 0)
+            //{
+            //    p.Id = FakeDatabase.NextIdInventory();
+            //    FakeDatabase.Inventory.Add(p);
+            //}
+            //else
+            //{
+            //    var productToReplace = FakeDatabase.Inventory.FirstOrDefault(i => i.Id == p.Id);
+            //    if(productToReplace != null)
+            //    {
+            //        FakeDatabase.Inventory.Remove(productToReplace);
+            //    }
+            //    FakeDatabase.Inventory.Add(p);
+            //}            
+            return Filebase.Current.AddOrUpdateInventory(p);
+        }
+        public List<Product> AddProductsToInventory(List<Product> productList)
+        {
+            if (productList != null)
             {
-                p.Id = FakeDatabase.NextIdInventory();
-                FakeDatabase.Inventory.Add(p);
+                return Filebase.Current.AddProductsToInventory(productList);
             }
-            else
-            {
-                var productToReplace = FakeDatabase.Inventory.FirstOrDefault(i => i.Id == p.Id);
-                if(productToReplace != null)
-                {
-                    FakeDatabase.Inventory.Remove(productToReplace);
-                }
-                FakeDatabase.Inventory.Add(p);
-            }
-            return p;
+            return new List<Product>();
         }
     }
 }

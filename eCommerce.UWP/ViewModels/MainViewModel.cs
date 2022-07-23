@@ -203,6 +203,7 @@ namespace eCommerce.UWP.ViewModels
                 if (_productServiceCart.CheckProductInList(SelectedProductInventory))
                 {
                     _productServiceCart.Delete(SelectedProductInventory.UID);
+                    _productServiceCart.DeleteProductInAllCarts(_productServiceCart.ReturnExistingProductInList());
                 }
                 _productServiceInventory.Delete(SelectedProductInventory.UID);
             }

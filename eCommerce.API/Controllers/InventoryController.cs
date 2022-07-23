@@ -35,6 +35,11 @@ namespace eCommerce.API.Controllers
             new InventoryEC().Delete(id);
             return id;
         }
+        [HttpPost("AddProductsToInventory")]
+        public List<Product> AddProductsToInventory(List<Product> productList)
+        {
+            return new InventoryEC().AddProductsToInventory(productList);
+        }
 
     }
 }

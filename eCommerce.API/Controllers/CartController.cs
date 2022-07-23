@@ -17,7 +17,7 @@ namespace eCommerce.API.Controllers
         }
 
         [HttpGet]
-        public Dictionary<string, List<Product>>.KeyCollection Get()
+        public List<string> Get()
         {
             return new CartEC().Get();
         }
