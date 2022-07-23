@@ -15,6 +15,7 @@ namespace eCommerce.API.Database
         private string _cartRoot;
         private static Filebase? _instance;
 
+        // Used to initially populate the database, added to the database in the constructor
         public static List<Product> SampleInventoryItems = new List<Product>
         {
             new ProductByQuantity { Name = "Pizza", Description = "Cheese", Price = 5, Bogo = false, Quantity = 100, Id = 1, UID = 1, QuantityTest = 1},
@@ -60,21 +61,16 @@ namespace eCommerce.API.Database
             }
             product.UID = product.Id;
 
-            //go to the right place
             string path;
             path = $"{_inventoryRoot}/{product.Id}.json";
 
-            //if the item has been previously persisted
             if(File.Exists(path))
             {
-                //blow it up
                 File.Delete(path);
             }
 
-            //write the file
             File.WriteAllText(path, JsonConvert.SerializeObject(product));
 
-            //return the item, which now has an id
             return product;
         }
 
@@ -85,21 +81,16 @@ namespace eCommerce.API.Database
             {
                 product.Id = NextIdCart(name);
             }
-            //go to the right place
             string path;
             path = $"{_cartRoot}/{name}/{product.Id}.json";
 
-            //if the item has been previously persisted
             if (File.Exists(path))
             {
-                //blow it up
                 File.Delete(path);
             }
 
-            //write the file
             File.WriteAllText(path, JsonConvert.SerializeObject(product));
 
-            //return the item, which now has an id
             return product;
         }
         public List<Product> GetInventory()
@@ -132,6 +123,7 @@ namespace eCommerce.API.Database
         }
         public List<string?> GetListOfCarts()
         {
+            // Get the list of file names from the _cartRoot directory
             List<string?> listOfCarts = Directory.GetDirectories(_cartRoot)
                             .Select(Path.GetFileName)
                             .ToList();
@@ -147,10 +139,8 @@ namespace eCommerce.API.Database
             string path;
             path = $"{_cartRoot}/{name}/{id}.json";
 
-            //if the item has been previously persisted
             if (File.Exists(path))
             {
-                //blow it up
                 File.Delete(path);
             }
             return id;
@@ -160,10 +150,8 @@ namespace eCommerce.API.Database
             string path;
             path = $"{_inventoryRoot}/{id}.json";
 
-            //if the item has been previously persisted
             if (File.Exists(path))
             {
-                //blow it up
                 File.Delete(path);
             }
             return id;
