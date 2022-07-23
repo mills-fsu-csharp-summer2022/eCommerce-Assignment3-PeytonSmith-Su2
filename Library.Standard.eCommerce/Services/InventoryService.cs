@@ -116,7 +116,7 @@ namespace Library.eCommerce.Services
                 return;
             }
             productList.Remove(productToDelete);
-            response = new WebRequestHandler().Post($"http://localhost:5127/Inventory/AddProductsToInventory", productList);
+            //response = new WebRequestHandler().Post($"http://localhost:5127/Inventory/AddProductsToInventory", productList);
         }
     }
 }
